@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Marketplace Assistant for Artisans</title>
+  <title>ArtisanAI - Craft Marketplace Assistant</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     * { 
       box-sizing: border-box; 
@@ -13,26 +14,29 @@
     }
     
     :root {
-      --primary: #FF7B36;
-      --primary-light: #FF9F59;
-      --secondary: #FFDE59;
-      --dark: #333333;
-      --light: #FDFDFD;
-      --gray: #777777;
-      --light-gray: #F3F3F3;
-      --success: #4CAF50;
-      --warning: #FF9800;
-      --danger: #F44336;
+      --clay: #D7C0AA;
+      --terracotta: #B85C38;
+      --sage: #8CA88E;
+      --mustard: #E3B448;
+      --deep-blue: #2D4263;
+      --paper: #F5F1E6;
+      --dark: #2C272E;
       --shadow: 0 4px 12px rgba(0,0,0,0.1);
       --radius: 12px;
       --transition: all 0.3s ease;
+      --hand-drawn: 2px;
     }
     
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--light);
+      font-family: 'Roboto', sans-serif;
+      background: var(--paper);
       color: var(--dark);
       line-height: 1.6;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" opacity="0.03"><path d="M10,10 C30,30 50,10 70,30 S90,50 70,70 S50,90 30,70 S10,50 30,30 S50,10 70,30" stroke="%232C272E" fill="none" /></svg>');
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
     }
 
     .container {
@@ -43,12 +47,13 @@
 
     /* Header & Navigation */
     header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, var(--terracotta), var(--mustard));
       padding: 20px 0;
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: var(--shadow);
+      border-bottom: var(--hand-drawn) solid var(--dark);
     }
 
     nav {
@@ -64,6 +69,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      text-shadow: 2px 2px 0 var(--dark);
     }
 
     .nav-links {
@@ -76,10 +82,22 @@
       text-decoration: none;
       font-weight: 500;
       transition: var(--transition);
+      position: relative;
     }
 
-    .nav-links a:hover {
-      color: var(--dark);
+    .nav-links a:after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover:after {
+      width: 100%;
     }
 
     .hamburger {
@@ -92,32 +110,23 @@
     /* Hero Section */
     .hero {
       text-align: center;
-      padding: 80px 20px;
+      padding: 100px 20px;
       color: white;
-      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      background: linear-gradient(rgba(45, 66, 99, 0.7), rgba(184, 92, 56, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" opacity="0.1"><path d="M20,20 C40,40 60,20 80,40 S100,60 80,80 S60,100 40,80 S20,60 40,40 S60,20 80,40" stroke="%23FFFFFF" fill="none" /></svg>');
+      background-size: cover;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
-      background-size: 200px;
-    }
-
     .hero h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 15px;
       position: relative;
+      text-shadow: 3px 3px 0 var(--dark);
     }
 
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       max-width: 700px;
       margin: 0 auto 30px;
       position: relative;
@@ -136,26 +145,29 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      position: relative;
+      overflow: hidden;
+      border: var(--hand-drawn) solid var(--dark);
     }
 
     .btn-primary {
-      background: var(--dark);
+      background: var(--deep-blue);
       color: white;
     }
 
     .btn-primary:hover {
-      background: #444;
+      background: #3a5285;
       transform: translateY(-3px);
       box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     .btn-secondary {
       background: white;
-      color: var(--primary);
+      color: var(--terracotta);
     }
 
     .btn-secondary:hover {
-      background: var(--light);
+      background: var(--paper);
       transform: translateY(-3px);
       box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     }
@@ -168,23 +180,28 @@
     }
 
     .section-title h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--dark);
       margin-bottom: 15px;
+      display: inline-block;
+      position: relative;
     }
 
-    .section-title::after {
+    .section-title h2:after {
       content: "";
-      display: block;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 80px;
       height: 4px;
-      background: var(--primary);
-      margin: 15px auto;
+      background: var(--terracotta);
       border-radius: 2px;
     }
 
     .features {
-      padding: 80px 0;
+      padding: 100px 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" opacity="0.03"><path d="M10,10 C30,30 50,10 70,30 S90,50 70,70 S50,90 30,70 S10,50 30,30 S50,10 70,30" stroke="%232C272E" fill="none" /></svg>');
     }
 
     .feature-grid {
@@ -200,17 +217,39 @@
       box-shadow: var(--shadow);
       transition: var(--transition);
       text-align: center;
+      border: var(--hand-drawn) solid var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--terracotta);
     }
 
     .feature-card:hover {
-      transform: translateY(-10px);
+      transform: translateY(-10px) rotate(1deg);
       box-shadow: 0 12px 25px rgba(0,0,0,0.15);
     }
 
     .feature-icon {
       font-size: 2.5rem;
       margin-bottom: 20px;
-      color: var(--primary);
+      color: var(--terracotta);
+      background: var(--paper);
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      border: var(--hand-drawn) solid var(--dark);
     }
 
     .feature-card h3 {
@@ -220,8 +259,9 @@
 
     /* Demo Section */
     .demo {
-      padding: 80px 0;
-      background: var(--light-gray);
+      padding: 100px 0;
+      background: var(--clay);
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" opacity="0.05"><path d="M0,0 L100,0 L100,100 L0,100 Z" stroke="%232C272E" fill="none" stroke-width="2" /></svg>');
     }
 
     .demo-container {
@@ -236,6 +276,7 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       transition: var(--transition);
+      border: var(--hand-drawn) solid var(--dark);
     }
 
     .demo-card:hover {
@@ -245,7 +286,7 @@
 
     .demo-card h3 {
       margin-bottom: 20px;
-      color: var(--primary);
+      color: var(--terracotta);
       font-size: 1.3rem;
       display: flex;
       align-items: center;
@@ -261,24 +302,28 @@
       border-radius: 8px;
       font-size: 1rem;
       transition: var(--transition);
+      font-family: 'Roboto', sans-serif;
+      border: var(--hand-drawn) solid var(--dark);
+      background: var(--paper);
     }
 
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(255, 123, 54, 0.2);
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(184, 92, 56, 0.2);
     }
 
     /* Output Areas */
     .output {
       margin-top: 15px;
-      background: var(--light-gray);
+      background: var(--paper);
       padding: 15px;
       border-radius: 8px;
       min-height: 60px;
       font-style: italic;
       position: relative;
-      border-left: 4px solid var(--primary);
+      border-left: 4px solid var(--terracotta);
+      border: var(--hand-drawn) solid var(--dark);
     }
 
     .loading {
@@ -292,7 +337,7 @@
       width: 10px;
       height: 10px;
       margin: 0 3px;
-      background-color: var(--primary);
+      background-color: var(--terracotta);
       border-radius: 50%;
       animation: bounce 1.4s infinite ease-in-out both;
     }
@@ -315,6 +360,7 @@
       overflow: hidden;
       box-shadow: 0 6px 18px rgba(0,0,0,0.15);
       text-align: center;
+      border: var(--hand-drawn) solid var(--dark);
     }
 
     .poster-preview img {
@@ -334,7 +380,7 @@
     }
 
     .poster-content p {
-      color: var(--gray);
+      color: var(--dark);
       font-size: 0.9rem;
     }
 
@@ -343,7 +389,8 @@
       background: var(--dark);
       color: white;
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" opacity="0.05"><path d="M0,0 L100,0 L100,100 L0,100 Z" stroke="%23FFFFFF" fill="none" stroke-width="2" /></svg>');
     }
 
     .footer-content {
@@ -366,20 +413,28 @@
       color: white;
       font-size: 1.2rem;
       transition: var(--transition);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--terracotta);
     }
 
     .social-links a:hover {
-      color: var(--secondary);
+      color: var(--mustard);
+      transform: translateY(-3px);
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
       .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
       }
       
       .hero p {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
       
       .hamburger {
@@ -393,7 +448,7 @@
         top: 60px;
         left: 0;
         width: 100%;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--terracotta), var(--mustard));
         padding: 20px;
         gap: 15px;
       }
@@ -422,6 +477,7 @@
       opacity: 0;
       transition: all 0.3s ease;
       z-index: 1000;
+      border: var(--hand-drawn) solid var(--dark);
     }
 
     .toast.show {
@@ -429,33 +485,26 @@
       opacity: 1;
     }
 
-    /* Tabs for additional features */
+    /* Tabs for different demo features */
     .tabs {
       display: flex;
       justify-content: center;
       margin: 30px 0;
       flex-wrap: wrap;
+      gap: 5px;
     }
 
     .tab-btn {
       padding: 12px 25px;
-      background: var(--light-gray);
-      border: none;
+      background: var(--paper);
+      border: var(--hand-drawn) solid var(--dark);
       cursor: pointer;
       font-weight: 600;
       transition: var(--transition);
     }
 
-    .tab-btn:first-child {
-      border-radius: 8px 0 0 8px;
-    }
-
-    .tab-btn:last-child {
-      border-radius: 0 8px 8px 0;
-    }
-
     .tab-btn.active {
-      background: var(--primary);
+      background: var(--terracotta);
       color: white;
     }
 
@@ -476,10 +525,11 @@
       box-shadow: var(--shadow);
       overflow: hidden;
       margin: 20px 0;
+      border: var(--hand-drawn) solid var(--dark);
     }
     
     .chat-header {
-      background: var(--primary);
+      background: var(--terracotta);
       color: white;
       padding: 15px;
       display: flex;
@@ -494,6 +544,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      background: var(--paper);
     }
     
     .message {
@@ -503,13 +554,14 @@
     }
     
     .bot-message {
-      background: var(--light-gray);
+      background: white;
       align-self: flex-start;
       border-bottom-left-radius: 4px;
+      border: var(--hand-drawn) solid var(--dark);
     }
     
     .user-message {
-      background: var(--primary-light);
+      background: var(--terracotta);
       color: white;
       align-self: flex-end;
       border-bottom-right-radius: 4px;
@@ -545,6 +597,7 @@
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
+      border: var(--hand-drawn) solid var(--dark);
     }
     
     .inventory-item img {
@@ -571,6 +624,7 @@
       border-radius: var(--radius);
       overflow: hidden;
       margin: 20px 0;
+      border: var(--hand-drawn) solid var(--dark);
     }
     
     .ar-placeholder {
@@ -583,7 +637,7 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      background: linear-gradient(135deg, var(--deep-blue) 0%, var(--sage) 100%);
       color: white;
     }
     
@@ -593,6 +647,7 @@
       border-radius: var(--radius);
       padding: 20px;
       box-shadow: var(--shadow);
+      border: var(--hand-drawn) solid var(--dark);
     }
     
     .calendar-header {
@@ -615,19 +670,21 @@
       justify-content: center;
       border-radius: 5px;
       cursor: pointer;
+      border: var(--hand-drawn) solid transparent;
     }
     
     .calendar-cell:hover {
-      background: var(--light-gray);
+      background: var(--paper);
+      border: var(--hand-drawn) solid var(--dark);
     }
     
     .calendar-cell.active {
-      background: var(--primary);
+      background: var(--terracotta);
       color: white;
     }
 
     .calendar-cell.today {
-      border: 2px solid var(--primary);
+      border: var(--hand-drawn) solid var(--terracotta);
       font-weight: bold;
     }
     
@@ -644,12 +701,13 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       text-align: center;
+      border: var(--hand-drawn) solid var(--dark);
     }
     
     .metric-value {
       font-size: 2.5rem;
       font-weight: bold;
-      color: var(--primary);
+      color: var(--terracotta);
       margin: 10px 0;
     }
 
@@ -661,11 +719,89 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      border: var(--hand-drawn) solid var(--dark);
     }
 
     .image-gen-preview img {
       width: 100%;
       height: auto;
+    }
+
+    /* File Upload Styling */
+    .file-upload {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .file-upload-btn {
+      border: 1px solid #ddd;
+      color: var(--dark);
+      background-color: var(--paper);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: normal;
+      width: 100%;
+      text-align: center;
+      border: var(--hand-drawn) solid var(--dark);
+    }
+
+    .file-upload input[type=file] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    /* Hand-drawn elements */
+    .hand-drawn {
+      border: var(--hand-drawn) solid var(--dark);
+    }
+
+    /* Craft pattern backgrounds */
+    .craft-pattern {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" opacity="0.03"><circle cx="50" cy="50" r="40" stroke="%232C272E" fill="none" /></svg>');
+    }
+
+    /* Decorative elements */
+    .decorative-corner {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+    }
+
+    .corner-tl {
+      top: 0;
+      left: 0;
+      border-top: var(--hand-drawn) solid var(--dark);
+      border-left: var(--hand-drawn) solid var(--dark);
+    }
+
+    .corner-tr {
+      top: 0;
+      right: 0;
+      border-top: var(--hand-drawn) solid var(--dark);
+      border-right: var(--hand-drawn) solid var(--dark);
+    }
+
+    .corner-bl {
+      bottom: 0;
+      left: 0;
+      border-bottom: var(--hand-drawn) solid var(--dark);
+      border-left: var(--hand-drawn) solid var(--dark);
+    }
+
+    .corner-br {
+      bottom: 0;
+      right: 0;
+      border-bottom: var(--hand-drawn) solid var(--dark);
+      border-right: var(--hand-drawn) solid var(--dark);
     }
   </style>
 </head>
@@ -675,7 +811,7 @@
     <div class="container">
       <nav>
         <div class="logo">
-          <i class="fas fa-hands-helping"></i>
+          <i class="fas fa-palette"></i>
           <span>ArtisanAI</span>
         </div>
         <div class="hamburger" onclick="toggleMenu()">
@@ -684,7 +820,7 @@
         <div class="nav-links">
           <a href="#features">Features</a>
           <a href="#demo">Demo</a>
-          <a href="#new-features">New Features</a>
+          <a href="#new-features">Workshop</a>
           <a href="#about">About</a>
         </div>
       </nav>
@@ -694,10 +830,10 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <h1>AI Marketplace Assistant for Local Artisans</h1>
-      <p>Empowering artisans with AI-powered storytelling, marketing, and collaboration tools to showcase their craftsmanship to the world</p>
+      <h1>AI Marketplace Assistant for Artisans</h1>
+      <p>Empowering craftspeople with AI-powered storytelling, marketing, and collaboration tools to showcase handmade creations</p>
       <button class="btn btn-primary" onclick="scrollToDemo()">
-        <i class="fas fa-bolt"></i> Try Live Demo
+        <i class="fas fa-magic"></i> Try Live Demo
       </button>
     </div>
   </section>
@@ -706,8 +842,8 @@
   <section class="features" id="features">
     <div class="container">
       <div class="section-title">
-        <h2>Powerful Features</h2>
-        <p>Everything artisans need to thrive in the digital marketplace</p>
+        <h2>Artisan Features</h2>
+        <p>Everything craftspeople need to thrive in the digital marketplace</p>
       </div>
       
       <div class="feature-grid">
@@ -716,7 +852,7 @@
             <i class="fas fa-microphone-alt"></i>
           </div>
           <h3>Voice-First Accessibility</h3>
-          <p>Describe your products naturally using voice commands in multiple languages</p>
+          <p>Describe your creations naturally using voice commands in multiple languages</p>
         </div>
         
         <div class="feature-card">
@@ -732,7 +868,7 @@
             <i class="fas fa-chart-line"></i>
           </div>
           <h3>Market Insights</h3>
-          <p>Get data-driven recommendations to price and position your products effectively</p>
+          <p>Get data-driven recommendations to price and position your crafts effectively</p>
         </div>
         
         <div class="feature-card">
@@ -748,7 +884,7 @@
             <i class="fas fa-handshake"></i>
           </div>
           <h3>Artisan Collaboration</h3>
-          <p>Connect with other artisans and create collaborative product lines</p>
+          <p>Connect with other makers and create collaborative product lines</p>
         </div>
         
         <div class="feature-card">
@@ -767,7 +903,7 @@
     <div class="container">
       <div class="section-title">
         <h2>Experience The Power of AI</h2>
-        <p>Try our interactive demo to see how ArtisanAI can transform your business</p>
+        <p>Try our interactive demo to see how ArtisanAI can transform your craft business</p>
       </div>
 
       <!-- Tabs for different demo features -->
@@ -782,16 +918,16 @@
         <div class="demo-container">
           <div class="demo-card">
             <h3><i class="fas fa-microphone-alt"></i> Voice Description</h3>
-            <p>Describe your product using your voice in English or Hindi</p>
+            <p>Describe your craft using your voice in English or Hindi</p>
             <select id="voiceLang">
               <option value="en-IN">English (India)</option>
               <option value="hi-IN">Hindi</option>
             </select>
-            <button class="btn btn-secondary" onclick="startVoiceInput()">
+            <button class="btn btn-secondary" id="voiceBtn" onclick="startVoiceInput()">
               <i class="fas fa-microphone"></i> Start Recording
             </button>
             <div class="output" id="voiceOutput">
-              <p>Click the button above and describe your product...</p>
+              <p>Click the button above and describe your craft...</p>
             </div>
             <div class="loading" id="voiceLoading">
               <span></span>
@@ -803,13 +939,13 @@
           
           <div class="demo-card">
             <h3><i class="fas fa-book-open"></i> AI Storyteller</h3>
-            <p>Generate a compelling story for your product</p>
-            <input type="text" id="storyInput" placeholder="Enter product name (e.g., Kanjiwaram Sari)"/>
+            <p>Generate a compelling story for your craft</p>
+            <input type="text" id="storyInput" placeholder="Enter craft name (e.g., Handwoven Basket)"/>
             <button class="btn btn-secondary" onclick="generateStory()">
               <i class="fas fa-magic"></i> Generate Story
             </button>
             <div class="output" id="storyOutput">
-              <p>Your product story will appear here...</p>
+              <p>Your craft story will appear here...</p>
             </div>
             <div class="loading" id="storyLoading">
               <span></span>
@@ -821,7 +957,7 @@
           
           <div class="demo-card">
             <h3><i class="fas fa-globe-asia"></i> Market Customization</h3>
-            <p>See how your product can be adapted for different markets</p>
+            <p>See how your craft can be adapted for different markets</p>
             <select id="marketSelect" onchange="customizeMarket()">
               <option value="">-- Select Target Market --</option>
               <option value="north">North India</option>
@@ -843,11 +979,16 @@
       <div id="tab2" class="tab-content">
         <div class="demo-container">
           <div class="demo-card">
-            <h3><i class="fas fa-camera"></i> Product Photography</h3>
-            <p>Upload an image of your product to generate marketing materials</p>
-            <input type="file" accept="image/*" onchange="previewImage(event)">
+            <h3><i class="fas fa-camera"></i> Craft Photography</h3>
+            <p>Upload an image of your craft to generate marketing materials</p>
+            <div class="file-upload">
+              <button class="file-upload-btn">
+                <i class="fas fa-upload"></i> Choose Image
+              </button>
+              <input type="file" accept="image/*" onchange="previewImage(event)">
+            </div>
             <div class="output">
-              <img id="preview" alt="Product Preview" style="width: 100%; border-radius: 8px; display: none;"/>
+              <img id="preview" alt="Craft Preview" style="width: 100%; border-radius: 8px; display: none;"/>
             </div>
           </div>
           
@@ -855,7 +996,7 @@
             <h3><i class="fas fa-paint-brush"></i> Design Customization</h3>
             <p>Customize your promotional poster</p>
             <input type="text" id="posterTitle" placeholder="Poster Title" value="Handcrafted with Love">
-            <textarea id="posterDesc" placeholder="Poster Description" rows="3">A unique artisan product that tells a story of tradition and craftsmanship</textarea>
+            <textarea id="posterDesc" placeholder="Poster Description" rows="3">A unique artisan craft that tells a story of tradition and craftsmanship</textarea>
             <button class="btn btn-secondary" onclick="generatePoster()">
               <i class="fas fa-image"></i> Generate Poster
             </button>
@@ -868,7 +1009,7 @@
               <img id="posterImg" src="" alt="Poster Image"/>
               <div class="poster-content">
                 <h3 id="posterCaption">Handcrafted with Love</h3>
-                <p id="posterDescription">A unique artisan product that tells a story of tradition and craftsmanship</p>
+                <p id="posterDescription">A unique artisan craft that tells a story of tradition and craftsmanship</p>
               </div>
             </div>
             <button class="btn btn-primary" id="downloadBtn" style="display:none; width: 100%; margin-top: 15px;" onclick="downloadPoster()">
@@ -883,8 +1024,8 @@
         <div class="demo-container">
           <div class="demo-card">
             <h3><i class="fas fa-search-dollar"></i> Pricing Suggestions</h3>
-            <p>Get AI-recommended pricing for your product</p>
-            <input type="text" id="productName" placeholder="Product Name">
+            <p>Get AI-recommended pricing for your craft</p>
+            <input type="text" id="productName" placeholder="Craft Name">
             <input type="number" id="costPrice" placeholder="Cost Price (₹)">
             <input type="number" id="hoursWorked" placeholder="Hours Worked">
             <button class="btn btn-secondary" onclick="calculatePricing()">
@@ -897,7 +1038,7 @@
           
           <div class="demo-card">
             <h3><i class="fas fa-chart-pie"></i> Market Analysis</h3>
-            <p>See how similar products are performing in the market</p>
+            <p>See how similar crafts are performing in the market</p>
             <select id="productCategory">
               <option value="">-- Select Category --</option>
               <option value="textiles">Textiles & Clothing</option>
@@ -937,30 +1078,30 @@
   </section>
 
   <!-- New Features Section -->
-  <section id="new-features" style="padding: 80px 0; background: white;">
+  <section id="new-features" style="padding: 100px 0; background: white;">
     <div class="container">
       <div class="section-title">
-        <h2>Additional Features</h2>
-        <p>More ways we're helping artisans succeed in the digital marketplace</p>
+        <h2>Artisan Workshop</h2>
+        <p>More ways we're helping craftspeople succeed in the digital marketplace</p>
       </div>
 
       <!-- AI Virtual Assistant -->
       <div class="demo-card" style="margin-bottom: 40px;">
-        <h3><i class="fas fa-robot"></i> AI Virtual Assistant</h3>
+        <h3><i class="fas fa-robot"></i> AI Craft Assistant</h3>
         <p>Get instant help with your artisan business questions</p>
         
         <div class="chat-container">
           <div class="chat-header">
             <i class="fas fa-robot"></i>
-            <span>Artisan Assistant</span>
+            <span>Craft Assistant</span>
           </div>
           <div class="chat-messages" id="chatMessages">
             <div class="message bot-message">
-              Hi there! I'm your Artisan Assistant. How can I help you today?
+              Hi there! I'm your Craft Assistant. How can I help you with your artisan business today?
             </div>
           </div>
           <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Ask a question about your artisan business...">
+            <input type="text" id="chatInput" placeholder="Ask a question about your craft business...">
             <button class="btn btn-primary" onclick="sendChatMessage()">
               <i class="fas fa-paper-plane"></i>
             </button>
@@ -971,8 +1112,8 @@
       <div class="demo-container">
         <!-- Inventory Management -->
         <div class="demo-card">
-          <h3><i class="fas fa-boxes"></i> Inventory Management</h3>
-          <p>Track your products and materials</p>
+          <h3><i class="fas fa-boxes"></i> Craft Inventory</h3>
+          <p>Track your creations and materials</p>
           <button class="btn btn-secondary" onclick="generateSampleInventory()">
             <i class="fas fa-plus"></i> Generate Sample Inventory
           </button>
@@ -983,8 +1124,8 @@
 
         <!-- AR Product Preview -->
         <div class="demo-card">
-          <h3><i class="fas fa-vr-cardboard"></i> AR Product Preview</h3>
-          <p>See how your products would look in a room</p>
+          <h3><i class="fas fa-vr-cardboard"></i> AR Craft Preview</h3>
+          <p>See how your crafts would look in a room</p>
           
           <div class="ar-container">
             <div class="ar-placeholder" id="arPlaceholder">
@@ -1001,7 +1142,7 @@
         <!-- Workshop Scheduler -->
         <div class="demo-card">
           <h3><i class="fas fa-calendar-alt"></i> Workshop Scheduler</h3>
-          <p>Organize and promote your artisan workshops</p>
+          <p>Organize and promote your craft workshops</p>
           
           <div class="calendar" id="calendar">
             <div class="calendar-header">
@@ -1032,19 +1173,19 @@
           
           <div class="metrics-grid">
             <div class="metric-card">
-              <i class="fas fa-tree" style="font-size: 2rem; color: var(--success);"></i>
+              <i class="fas fa-tree" style="font-size: 2rem; color: var(--sage);"></i>
               <div class="metric-value">42</div>
               <p>Trees saved using sustainable materials</p>
             </div>
             
             <div class="metric-card">
-              <i class="fas fa-tint" style="font-size: 2rem; color: var(--primary);"></i>
+              <i class="fas fa-tint" style="font-size: 2rem; color: var(--deep-blue);"></i>
               <div class="metric-value">12,800L</div>
               <p>Water saved through eco-friendly processes</p>
             </div>
             
             <div class="metric-card">
-              <i class="fas fa-cloud" style="font-size: 2rem; color: var(--gray);"></i>
+              <i class="fas fa-cloud" style="font-size: 2rem; color: var(--clay);"></i>
               <div class="metric-value">3.2T</div>
               <p>Carbon emissions reduced</p>
             </div>
@@ -1058,13 +1199,13 @@
         <!-- New Feature: AI Image Generator -->
         <div class="demo-card">
           <h3><i class="fas fa-magic"></i> AI Image Generator</h3>
-          <p>Generate images for your products using AI</p>
-          <textarea id="imageDesc" placeholder="Describe the image (e.g., A vibrant handwoven sari in red and gold)" rows="3"></textarea>
+          <p>Generate images for your crafts using AI</p>
+          <textarea id="imageDesc" placeholder="Describe the image (e.g., A vibrant handwoven basket with natural dyes)" rows="3"></textarea>
           <button class="btn btn-secondary" onclick="confirmGenerateImage()">
             <i class="fas fa-image"></i> Generate Image
           </button>
           <div class="image-gen-preview" id="imagePreview">
-            <img id="genImage" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF9F59'/><text x='200' y='150' font-family='Arial' font-size='24' fill='white' text-anchor='middle'>Generated Image Placeholder</text></svg>" alt="Generated Image">
+            <img id="genImage" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23B85C38'/><text x='200' y='150' font-family='Arial' font-size='24' fill='white' text-anchor='middle'>Generated Image Placeholder</text></svg>" alt="Generated Image">
           </div>
         </div>
 
@@ -1084,14 +1225,14 @@
 
         <!-- New Feature: Community Forum Preview -->
         <div class="demo-card">
-          <h3><i class="fas fa-users"></i> Community Forum</h3>
+          <h3><i class="fas fa-users"></i> Craft Community</h3>
           <p>Connect with other artisans</p>
           <div class="output">
-            <p><strong>Recent Posts:</strong></p>
+            <p><strong>Recent Discussions:</strong></p>
             <ul>
               <li>How to market handmade pottery?</li>
               <li>Best sustainable materials for textiles</li>
-              <li>Collaboration opportunities in jewelry</li>
+              <li>Collaboration opportunities in jewelry making</li>
             </ul>
           </div>
           <button class="btn btn-secondary" style="width: 100%;">
@@ -1103,7 +1244,7 @@
   </section>
 
   <!-- About Section -->
-  <section id="about" style="padding: 80px 0; background: var(--light-gray);">
+  <section id="about" style="padding: 100px 0; background: var(--paper);">
     <div class="container">
       <div class="section-title">
         <h2>Our Mission</h2>
@@ -1126,7 +1267,7 @@
   <footer>
     <div class="footer-content">
       <div class="logo" style="justify-content: center;">
-        <i class="fas fa-hands-helping"></i>
+        <i class="fas fa-palette"></i>
         <span>ArtisanAI</span>
       </div>
       <p>Empowering artisans with AI-driven tools for the modern marketplace</p>
@@ -1138,7 +1279,7 @@
         <a href="#"><i class="fab fa-youtube"></i></a>
       </div>
       
-      <p>Made with ❤️ for Gen AI Hackathon</p>
+      <p>Made with ❤️ for Artisans Everywhere</p>
     </div>
   </footer>
 
@@ -1150,7 +1291,9 @@
 
   <script>
     // Current date for calendar
-    let currentDate = new Date(2025, 7, 22); // August is 7 (0-indexed), day 22
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
 
     // Smooth scroll to demo
     function scrollToDemo() {
@@ -1186,6 +1329,18 @@
     function showToast(message, type = "default") {
       const toast = document.getElementById("toast");
       toast.textContent = message;
+      
+      // Add type class for different colors
+      if (type === "error") {
+        toast.style.background = "var(--terracotta)";
+      } else if (type === "success") {
+        toast.style.background = "var(--sage)";
+      } else if (type === "warning") {
+        toast.style.background = "var(--mustard)";
+      } else {
+        toast.style.background = "var(--dark)";
+      }
+      
       toast.className = "toast show";
       
       // Hide toast after 3 seconds
@@ -1203,33 +1358,47 @@
 
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
       recognition.lang = document.getElementById("voiceLang").value;
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      
       recognition.start();
 
-      document.getElementById("voiceOutput").innerHTML = "<p><i class='fas fa-microphone-alt'></i> Listening... Please describe your product</p>";
+      document.getElementById("voiceOutput").innerHTML = "<p><i class='fas fa-microphone-alt'></i> Listening... Please describe your craft...</p>";
       document.getElementById("voiceLoading").style.display = "block";
 
       recognition.onresult = function(event) {
         const speech = event.results[0][0].transcript;
+        
         document.getElementById("voiceLoading").style.display = "none";
         
         // Simulate AI processing with a delay
         setTimeout(() => {
           document.getElementById("voiceOutput").innerHTML = `
-            <p><i class='fas fa-check-circle' style='color: var(--success)'></i> <strong>You said:</strong> "${speech}"</p>
+            <p><i class='fas fa-check-circle' style='color: var(--sage)'></i> <strong>You said:</strong> "${speech}"</p>
             <hr style='margin: 10px 0; opacity: 0.3'>
-            <p><i class='fas fa-robot' style='color: var(--primary)'></i> <strong>AI Description:</strong> "${speech}" - a beautifully handcrafted piece made with traditional techniques and attention to detail. This product tells a story of cultural heritage and skilled craftsmanship.</p>
+            <p><i class='fas fa-robot' style='color: var(--terracotta)'></i> <strong>AI Description:</strong> "${speech}" - a beautifully handcrafted piece made with traditional techniques and attention to detail. This craft tells a story of cultural heritage and skilled craftsmanship.</p>
           `;
           
           // Also update the market output with a suggestion
           document.getElementById("marketOutput").innerHTML = `
-            <p><i class='fas fa-lightbulb' style='color: var(--warning)'></i> <strong>AI Suggestion:</strong> This product would appeal to customers interested in authentic handmade goods. Consider highlighting the traditional techniques used in its creation.</p>
+            <p><i class='fas fa-lightbulb' style='color: var(--mustard)'></i> <strong>AI Suggestion:</strong> This craft would appeal to customers interested in authentic handmade goods. Consider highlighting the traditional techniques used in its creation.</p>
           `;
         }, 1500);
       };
 
-      recognition.onerror = function() {
+      recognition.onerror = function(event) {
         document.getElementById("voiceLoading").style.display = "none";
-        document.getElementById("voiceOutput").innerHTML = "<p><i class='fas fa-exclamation-circle' style='color: var(--danger)'></i> Error capturing speech. Please try again.</p>";
+        
+        let errorMessage = "Error capturing speech. Please try again.";
+        if (event.error === 'no-speech') {
+          errorMessage = "No speech was detected. Please try again.";
+        } else if (event.error === 'audio-capture') {
+          errorMessage = "No microphone was found. Please ensure a microphone is connected.";
+        } else if (event.error === 'not-allowed') {
+          errorMessage = "Permission to use microphone is blocked. Please allow microphone access.";
+        }
+        
+        document.getElementById("voiceOutput").innerHTML = `<p><i class='fas fa-exclamation-circle' style='color: var(--terracotta)'></i> ${errorMessage}</p>`;
       };
     }
 
@@ -1239,16 +1408,16 @@
       let output = "";
 
       if (market === "north") output = "Focus on the vibrant colors and intricate embroidery that characterize North Indian traditions. Highlight suitability for weddings and festive occasions.";
-      else if (market === "south") output = "Emphasize the fine craftsmanship, traditional motifs, and cultural significance of this product in South Indian ceremonies and daily life.";
-      else if (market === "west") output = "Showcase the product's versatility for both traditional and contemporary settings, appealing to Western India's diverse aesthetic preferences.";
+      else if (market === "south") output = "Emphasize the fine craftsmanship, traditional motifs, and cultural significance of this craft in South Indian ceremonies and daily life.";
+      else if (market === "west") output = "Showcase the craft's versatility for both traditional and contemporary settings, appealing to Western India's diverse aesthetic preferences.";
       else if (market === "east") output = "Highlight the connection to nature and spiritual symbolism that resonates with Eastern Indian cultural traditions.";
       else if (market === "global") output = "Focus on the universal appeal of handmade craftsmanship, sustainability, and the story behind the artisan. Use terms like 'ethically made' and 'fair trade'.";
-      else if (market === "europe") output = "Emphasize the product's authenticity, traditional techniques, and uniqueness. European markets value products with stories and cultural significance.";
-      else if (market === "usa") output = "Highlight the product's uniqueness, craftsmanship, and how it supports artisan communities. American consumers appreciate products with social impact stories.";
+      else if (market === "europe") output = "Emphasize the craft's authenticity, traditional techniques, and uniqueness. European markets value products with stories and cultural significance.";
+      else if (market === "usa") output = "Highlight the craft's uniqueness, craftsmanship, and how it supports artisan communities. American consumers appreciate products with social impact stories.";
       else output = "Please select a market to see customized recommendations.";
 
       document.getElementById("marketOutput").innerHTML = output ? 
-        `<p><i class='fas fa-globe' style='color: var(--primary)'></i> <strong>Market Customization:</strong> ${output}</p>` : 
+        `<p><i class='fas fa-globe' style='color: var(--terracotta)'></i> <strong>Market Customization:</strong> ${output}</p>` : 
         "<p>Please select a market to see customized recommendations...</p>";
     }
 
@@ -1256,6 +1425,12 @@
     function previewImage(event) {
       const file = event.target.files[0];
       if (!file) return;
+
+      // Check if file is an image
+      if (!file.type.match('image.*')) {
+        showToast("Please select an image file.", "error");
+        return;
+      }
 
       const img = document.getElementById("preview");
       img.style.display = "block";
@@ -1265,6 +1440,8 @@
       if (document.getElementById("posterImg")) {
         document.getElementById("posterImg").src = URL.createObjectURL(file);
       }
+      
+      showToast("Image uploaded successfully!", "success");
     }
 
     // Generate poster
@@ -1272,6 +1449,11 @@
       const poster = document.getElementById("poster");
       const title = document.getElementById("posterTitle").value;
       const description = document.getElementById("posterDesc").value;
+      
+      if (!title.trim() || !description.trim()) {
+        showToast("Please provide both a title and description for your poster.", "error");
+        return;
+      }
       
       // Update poster content
       document.getElementById("posterCaption").textContent = title;
@@ -1281,7 +1463,7 @@
       poster.style.display = "block";
       document.getElementById("downloadBtn").style.display = "block";
       
-      showToast("Poster generated successfully!");
+      showToast("Poster generated successfully!", "success");
     }
 
     // Download poster as image
@@ -1294,14 +1476,14 @@
         link.click();
       });
       
-      showToast("Poster downloaded!");
+      showToast("Poster downloaded!", "success");
     }
 
     // AI Storytelling
     function generateStory() {
       const product = document.getElementById("storyInput").value.trim();
       if (!product) {
-        showToast("Please enter a product name first!", "error");
+        showToast("Please enter a craft name first!", "error");
         return;
       }
 
@@ -1311,10 +1493,10 @@
       // Simulate AI processing with a delay
       setTimeout(() => {
         const stories = {
-          "kanjiwaram sari": `The ${product} is a masterpiece of South Indian weaving tradition. Each sari takes approximately 10-15 days to create on traditional handlooms, with intricate patterns known as "kolam" that are passed down through generations. The vibrant colors are derived from natural sources, and the zari (gold thread) work represents the rich cultural heritage of Tamil Nadu.`,
+          "handwoven basket": `This ${product} is woven by skilled artisans using techniques passed down through generations. Each basket tells a story of cultural heritage and connection to nature, with patterns that reflect the artisan's environment and traditions.`,
           "pottery": `This ${product} is hand-thrown by skilled artisans using techniques that date back thousands of years. The clay is sourced locally from riverbanks, and each piece is sun-dried before being fired in traditional wood-burning kilns. The unique patterns are created using natural dyes and represent the artisan's connection to their environment and cultural symbols.`,
           "jewelry": `Crafted by hand using techniques perfected over centuries, this ${product} tells a story of cultural identity and artistic expression. The artisan has incorporated traditional motifs that symbolize protection, prosperity, and connection to nature, creating a piece that is both beautiful and meaningful.`,
-          "": "Please enter a product name to generate a story."
+          "": "Please enter a craft name to generate a story."
         };
 
         const story = stories[product.toLowerCase()] || 
@@ -1322,7 +1504,7 @@
 
         document.getElementById("storyLoading").style.display = "none";
         document.getElementById("storyOutput").innerHTML = `
-          <p><i class='fas fa-book-open' style='color: var(--primary)'></i> <strong>Story for ${product}:</strong></p>
+          <p><i class='fas fa-book-open' style='color: var(--terracotta)'></i> <strong>Story for ${product}:</strong></p>
           <p>${story}</p>
         `;
       }, 2000);
@@ -1336,6 +1518,11 @@
       
       if (!productName || isNaN(costPrice) || isNaN(hoursWorked)) {
         showToast("Please fill all fields correctly for pricing calculation", "error");
+        return;
+      }
+      
+      if (costPrice <= 0 || hoursWorked <= 0) {
+        showToast("Cost price and hours worked must be positive numbers", "error");
         return;
       }
       
@@ -1469,10 +1656,10 @@
       const inventoryGrid = document.getElementById("inventoryGrid");
       
       const sampleItems = [
-        { name: "Handwoven Sari", stock: 5, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23FF9F59'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Handwoven Sari</text></svg>" },
-        { name: "Clay Pottery Set", stock: 3, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23FF7B36'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Clay Pottery Set</text></svg>" },
-        { name: "Brass Earrings", stock: 12, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23FFDE59'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Brass Earrings</text></svg>" },
-        { name: "Wooden Sculpture", stock: 2, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23333'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Wooden Sculpture</text></svg>" }
+        { name: "Handwoven Sari", stock: 5, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23D7C0AA'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Handwoven Sari</text></svg>" },
+        { name: "Clay Pottery Set", stock: 3, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23B85C38'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Clay Pottery Set</text></svg>" },
+        { name: "Brass Earrings", stock: 12, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23E3B448'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Brass Earrings</text></svg>" },
+        { name: "Wooden Sculpture", stock: 2, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%232D4263'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Wooden Sculpture</text></svg>" }
       ];
       
       // Load from localStorage if available
@@ -1493,15 +1680,17 @@
       });
       
       inventoryGrid.innerHTML = inventoryHTML;
-      showToast("Inventory loaded! Edit stock as needed.");
+      showToast("Inventory loaded! Edit stock as needed.", "success");
     }
 
     // Update stock in localStorage
     function updateStock(index, newStock) {
       const savedInventory = JSON.parse(localStorage.getItem('inventory')) || [];
-      savedInventory[index].stock = parseInt(newStock);
-      localStorage.setItem('inventory', JSON.stringify(savedInventory));
-      showToast("Stock updated!");
+      if (index >= 0 && index < savedInventory.length) {
+        savedInventory[index].stock = parseInt(newStock) || 0;
+        localStorage.setItem('inventory', JSON.stringify(savedInventory));
+        showToast("Stock updated!", "success");
+      }
     }
 
     // Activate AR Preview
@@ -1515,19 +1704,16 @@
       // Simulate AR loading with improved message
       setTimeout(() => {
         arPlaceholder.innerHTML = `
-          <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 15px; color: var(--success);"></i>
+          <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 15px; color: var(--sage);"></i>
           <p>AR experience loaded</p>
           <p style="font-size: 0.8rem; margin-top: 10px;">Move your device to view product in AR. (Simulation: Imagine your product here!)</p>
         `;
         
-        showToast("AR experience activated!");
+        showToast("AR experience activated!", "success");
       }, 2000);
     }
 
     // Dynamic Calendar
-    let currentMonth = currentDate.getMonth();
-    let currentYear = currentDate.getFullYear();
-
     function generateCalendar(month, year) {
       const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       document.getElementById("calendarMonthYear").textContent = `${monthNames[month]} ${year}`;
@@ -1539,16 +1725,17 @@
 
       // Empty cells
       for (let i = 0; i < firstDay; i++) {
-        calendarHTML += "<div></div>";
+        calendarHTML += "<div class='calendar-cell'></div>";
       }
 
       // Days
+      const today = new Date();
       for (let day = 1; day <= daysInMonth; day++) {
-        let cellClass = "";
-        if (day === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
-          cellClass = "today";
+        let cellClass = "calendar-cell";
+        if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+          cellClass += " today";
         }
-        calendarHTML += `<div class="calendar-cell ${cellClass}">${day}</div>`;
+        calendarHTML += `<div class="${cellClass}">${day}</div>`;
       }
 
       document.getElementById("calendarGrid").innerHTML = calendarHTML;
@@ -1583,7 +1770,7 @@
       if (confirm(`Do you want to generate an image for: "${desc}"?`)) {
         // Simulate generation
         document.getElementById("imagePreview").style.display = "block";
-        showToast("Image generated! (Placeholder shown)");
+        showToast("Image generated! (Placeholder shown)", "success");
       } else {
         showToast("Image generation cancelled.");
       }
@@ -1594,8 +1781,8 @@
       const materials = parseFloat(document.getElementById("materialsUsed").value);
       const water = parseFloat(document.getElementById("waterUsed").value);
 
-      if (isNaN(materials) || isNaN(water)) {
-        showToast("Please enter valid numbers!", "error");
+      if (isNaN(materials) || isNaN(water) || materials < 0 || water < 0) {
+        showToast("Please enter valid positive numbers!", "error");
         return;
       }
 
@@ -1615,9 +1802,9 @@
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
       // Set some sample values for demo purposes
-      document.getElementById("storyInput").value = "Kanjiwaram Sari";
+      document.getElementById("storyInput").value = "Handwoven Basket";
       document.getElementById("posterTitle").value = "Handcrafted with Love";
-      document.getElementById("posterDesc").value = "A unique artisan product that tells a story of tradition and craftsmanship";
+      document.getElementById("posterDesc").value = "A unique artisan craft that tells a story of tradition and craftsmanship";
       
       // Generate calendar
       generateCalendar(currentMonth, currentYear);
