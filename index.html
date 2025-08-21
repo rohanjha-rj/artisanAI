@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Marketplace Assistant for Artisans</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+    
+    :root {
+      --primary: #FF7B36;
+      --primary-light: #FF9F59;
+      --secondary: #FFDE59;
+      --dark: #333333;
+      --light: #FDFDFD;
+      --gray: #777777;
+      --light-gray: #F3F3F3;
+      --success: #4CAF50;
+      --warning: #FF9800;
+      --danger: #F44336;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--dark);
+    }
+
+    .hamburger {
+      display: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      color: white;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.05"><circle cx="50" cy="50" r="40" stroke="white" stroke-width="2" fill="none" /></svg>');
+      background-size: 200px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--dark);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #444;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Features Section */
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark);
+      margin-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+
+    .features {
+      padding: 80px 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+
+    /* Demo Section */
+    .demo {
+      padding: 80px 0;
+      background: var(--light-gray);
+    }
+
+    .demo-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .demo-card {
+      background: white;
+      padding: 25px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .demo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .demo-card h3 {
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Form Elements */
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(255, 123, 54, 0.2);
+    }
+
+    /* Output Areas */
+    .output {
+      margin-top: 15px;
+      background: var(--light-gray);
+      padding: 15px;
+      border-radius: 8px;
+      min-height: 60px;
+      font-style: italic;
+      position: relative;
+      border-left: 4px solid var(--primary);
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .loading span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 3px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+
+    .loading span:nth-child(1) { animation-delay: -0.32s; }
+    .loading span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1.0); }
+    }
+
+    /* Poster Styling */
+    .poster-preview {
+      display: none;
+      margin: 20px auto;
+      max-width: 400px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .poster-preview img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .poster-content {
+      padding: 15px;
+    }
+
+    .poster-content h3 {
+      margin: 10px 0;
+      font-size: 1.4rem;
+      color: var(--dark);
+    }
+
+    .poster-content p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-content p {
+      margin: 20px 0;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .social-links a {
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--secondary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .hamburger {
+        display: block;
+      }
+      
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .feature-grid,
+      .demo-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background: var(--dark);
+      color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Tabs for additional features */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 25px;
+      background: var(--light-gray);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .tab-btn:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .tab-btn:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* NEW STYLES FOR ADDITIONAL FEATURES */
+    
+    /* Virtual Assistant Chat */
+    .chat-container {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .chat-messages {
+      height: 300px;
+      overflow-y: auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .message {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 18px;
+    }
+    
+    .bot-message {
+      background: var(--light-gray);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    
+    .user-message {
+      background: var(--primary-light);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    
+    .chat-input {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #eee;
+    }
+    
+    .chat-input input {
+      flex: 1;
+      margin: 0;
+      border-radius: 20px 0 0 20px;
+    }
+    
+    .chat-input button {
+      border-radius: 0 20px 20px 0;
+      margin: 0;
+    }
+    
+    /* Inventory Management */
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .inventory-item {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    .inventory-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    
+    .inventory-details {
+      padding: 15px;
+    }
+
+    .inventory-details input {
+      width: 60px;
+      margin-left: 10px;
+    }
+    
+    /* AR Preview */
+    .ar-container {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background: #eee;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    
+    .ar-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+    }
+    
+    /* Workshop Scheduler */
+    .calendar {
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+    
+    .calendar-cell {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .calendar-cell:hover {
+      background: var(--light-gray);
+    }
+    
+    .calendar-cell.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .calendar-cell.today {
+      border: 2px solid var(--primary);
+      font-weight: bold;
+    }
+    
+    /* Sustainability Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .metric-card {
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 10px 0;
+    }
+
+    /* New Feature: AI Image Generator */
+    .image-gen-preview {
+      display: none;
+      margin: 20px auto;
+      max-width: 400px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .image-gen-preview img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <i class="fas fa-hands-helping"></i>
+          <span>ArtisanAI</span>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#demo">Demo</a>
+          <a href="#new-features">New Features</a>
+          <a href="#about">About</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>AI Marketplace Assistant for Local Artisans</h1>
+      <p>Empowering artisans with AI-powered storytelling, marketing, and collaboration tools to showcase their craftsmanship to the world</p>
+      <button class="btn btn-primary" onclick="scrollToDemo()">
+        <i class="fas fa-bolt"></i> Try Live Demo
+      </button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Powerful Features</h2>
+        <p>Everything artisans need to thrive in the digital marketplace</p>
+      </div>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-microphone-alt"></i>
+          </div>
+          <h3>Voice-First Accessibility</h3>
+          <p>Describe your products naturally using voice commands in multiple languages</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <h3>AI Storytelling</h3>
+          <p>Transform product details into compelling stories that connect with customers</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Market Insights</h3>
+          <p>Get data-driven recommendations to price and position your products effectively</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Visual Merchandising</h3>
+          <p>Create stunning promotional materials with AI-enhanced visuals</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Artisan Collaboration</h3>
+          <p>Connect with other artisans and create collaborative product lines</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3>Global Reach</h3>
+          <p>Adapt your listings for international markets with translation and cultural customization</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="section-title">
+        <h2>Experience The Power of AI</h2>
+        <p>Try our interactive demo to see how ArtisanAI can transform your business</p>
+      </div>
+
+      <!-- Tabs for different demo features -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'tab1')">Voice & Story</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab2')">Visual Marketing</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab3')">Market Insights</button>
+      </div>
+
+      <!-- Tab 1: Voice and Story -->
+      <div id="tab1" class="tab-content active">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-microphone-alt"></i> Voice Description</h3>
+            <p>Describe your product using your voice in English or Hindi</p>
+            <select id="voiceLang">
+              <option value="en-IN">English (India)</option>
+              <option value="hi-IN">Hindi</option>
+            </select>
+            <button class="btn btn-secondary" onclick="startVoiceInput()">
+              <i class="fas fa-microphone"></i> Start Recording
+            </button>
+            <div class="output" id="voiceOutput">
+              <p>Click the button above and describe your product...</p>
+            </div>
+            <div class="loading" id="voiceLoading">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>Processing your description...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-book-open"></i> AI Storyteller</h3>
+            <p>Generate a compelling story for your product</p>
+            <input type="text" id="storyInput" placeholder="Enter product name (e.g., Kanjiwaram Sari)"/>
+            <button class="btn btn-secondary" onclick="generateStory()">
+              <i class="fas fa-magic"></i> Generate Story
+            </button>
+            <div class="output" id="storyOutput">
+              <p>Your product story will appear here...</p>
+            </div>
+            <div class="loading" id="storyLoading">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>Crafting your story...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-globe-asia"></i> Market Customization</h3>
+            <p>See how your product can be adapted for different markets</p>
+            <select id="marketSelect" onchange="customizeMarket()">
+              <option value="">-- Select Target Market --</option>
+              <option value="north">North India</option>
+              <option value="south">South India</option>
+              <option value="west">West India</option>
+              <option value="east">East India</option>
+              <option value="global">Global Market</option>
+              <option value="europe">European Market</option>
+              <option value="usa">North American Market</option>
+            </select>
+            <div class="output" id="marketOutput">
+              <p>Select a market to see customized recommendations...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Visual Marketing -->
+      <div id="tab2" class="tab-content">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-camera"></i> Product Photography</h3>
+            <p>Upload an image of your product to generate marketing materials</p>
+            <input type="file" accept="image/*" onchange="previewImage(event)">
+            <div class="output">
+              <img id="preview" alt="Product Preview" style="width: 100%; border-radius: 8px; display: none;"/>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-paint-brush"></i> Design Customization</h3>
+            <p>Customize your promotional poster</p>
+            <input type="text" id="posterTitle" placeholder="Poster Title" value="Handcrafted with Love">
+            <textarea id="posterDesc" placeholder="Poster Description" rows="3">A unique artisan product that tells a story of tradition and craftsmanship</textarea>
+            <button class="btn btn-secondary" onclick="generatePoster()">
+              <i class="fas fa-image"></i> Generate Poster
+            </button>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-file-image"></i> Poster Preview</h3>
+            <p>Your customized marketing poster</p>
+            <div class="poster-preview" id="poster">
+              <img id="posterImg" src="" alt="Poster Image"/>
+              <div class="poster-content">
+                <h3 id="posterCaption">Handcrafted with Love</h3>
+                <p id="posterDescription">A unique artisan product that tells a story of tradition and craftsmanship</p>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="downloadBtn" style="display:none; width: 100%; margin-top: 15px;" onclick="downloadPoster()">
+              <i class="fas fa-download"></i> Download Poster
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Market Insights -->
+      <div id="tab3" class="tab-content">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-search-dollar"></i> Pricing Suggestions</h3>
+            <p>Get AI-recommended pricing for your product</p>
+            <input type="text" id="productName" placeholder="Product Name">
+            <input type="number" id="costPrice" placeholder="Cost Price (₹)">
+            <input type="number" id="hoursWorked" placeholder="Hours Worked">
+            <button class="btn btn-secondary" onclick="calculatePricing()">
+              <i class="fas fa-calculator"></i> Calculate Pricing
+            </button>
+            <div class="output" id="pricingOutput">
+              <p>Pricing suggestions will appear here...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-chart-pie"></i> Market Analysis</h3>
+            <p>See how similar products are performing in the market</p>
+            <select id="productCategory">
+              <option value="">-- Select Category --</option>
+              <option value="textiles">Textiles & Clothing</option>
+              <option value="pottery">Pottery & Ceramics</option>
+              <option value="jewelry">Jewelry & Accessories</option>
+              <option value="home">Home Decor</option>
+              <option value="art">Art & Sculptures</option>
+            </select>
+            <button class="btn btn-secondary" onclick="showMarketAnalysis()">
+              <i class="fas fa-chart-bar"></i> Analyze Market
+            </button>
+            <div class="output" id="analysisOutput">
+              <p>Market analysis will appear here...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-bullseye"></i> Marketing Tips</h3>
+            <p>Personalized recommendations for your business</p>
+            <select id="businessSize">
+              <option value="">-- Business Size --</option>
+              <option value="individual">Individual Artisan</option>
+              <option value="small">Small Workshop (2-5 people)</option>
+              <option value="medium">Medium Enterprise (5-20 people)</option>
+              <option value="large">Large Cooperative</option>
+            </select>
+            <button class="btn btn-secondary" onclick="generateMarketingTips()">
+              <i class="fas fa-lightbulb"></i> Get Tips
+            </button>
+            <div class="output" id="tipsOutput">
+              <p>Marketing tips will appear here...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Features Section -->
+  <section id="new-features" style="padding: 80px 0; background: white;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Additional Features</h2>
+        <p>More ways we're helping artisans succeed in the digital marketplace</p>
+      </div>
+
+      <!-- AI Virtual Assistant -->
+      <div class="demo-card" style="margin-bottom: 40px;">
+        <h3><i class="fas fa-robot"></i> AI Virtual Assistant</h3>
+        <p>Get instant help with your artisan business questions</p>
+        
+        <div class="chat-container">
+          <div class="chat-header">
+            <i class="fas fa-robot"></i>
+            <span>Artisan Assistant</span>
+          </div>
+          <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+              Hi there! I'm your Artisan Assistant. How can I help you today?
+            </div>
+          </div>
+          <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Ask a question about your artisan business...">
+            <button class="btn btn-primary" onclick="sendChatMessage()">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-container">
+        <!-- Inventory Management -->
+        <div class="demo-card">
+          <h3><i class="fas fa-boxes"></i> Inventory Management</h3>
+          <p>Track your products and materials</p>
+          <button class="btn btn-secondary" onclick="generateSampleInventory()">
+            <i class="fas fa-plus"></i> Generate Sample Inventory
+          </button>
+          <div class="inventory-grid" id="inventoryGrid">
+            <!-- Inventory items will be generated here -->
+          </div>
+        </div>
+
+        <!-- AR Product Preview -->
+        <div class="demo-card">
+          <h3><i class="fas fa-vr-cardboard"></i> AR Product Preview</h3>
+          <p>See how your products would look in a room</p>
+          
+          <div class="ar-container">
+            <div class="ar-placeholder" id="arPlaceholder">
+              <i class="fas fa-vr-cardboard" style="font-size: 3rem; margin-bottom: 15px;"></i>
+              <p>Click to activate AR preview</p>
+            </div>
+          </div>
+          
+          <button class="btn btn-secondary" onclick="activateAR()" style="width: 100%;">
+            <i class="fas fa-cube"></i> Try AR Preview
+          </button>
+        </div>
+
+        <!-- Workshop Scheduler -->
+        <div class="demo-card">
+          <h3><i class="fas fa-calendar-alt"></i> Workshop Scheduler</h3>
+          <p>Organize and promote your artisan workshops</p>
+          
+          <div class="calendar" id="calendar">
+            <div class="calendar-header">
+              <button class="btn btn-secondary" style="padding: 5px 10px;" onclick="prevMonth()">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <span id="calendarMonthYear">August 2025</span>
+              <button class="btn btn-secondary" style="padding: 5px 10px;" onclick="nextMonth()">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            
+            <div class="calendar-grid" id="calendarGrid">
+              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+            </div>
+          </div>
+          
+          <div class="output" style="margin-top: 15px;">
+            <p><strong>Next Workshop:</strong> Pottery Making - September 4, 2025</p>
+            <p>420 attendees registered</p>
+          </div>
+        </div>
+
+        <!-- Sustainability Metrics -->
+        <div class="demo-card">
+          <h3><i class="fas fa-leaf"></i> Sustainability Metrics</h3>
+          <p>Track your environmental impact</p>
+          
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <i class="fas fa-tree" style="font-size: 2rem; color: var(--success);"></i>
+              <div class="metric-value">42</div>
+              <p>Trees saved using sustainable materials</p>
+            </div>
+            
+            <div class="metric-card">
+              <i class="fas fa-tint" style="font-size: 2rem; color: var(--primary);"></i>
+              <div class="metric-value">12,800L</div>
+              <p>Water saved through eco-friendly processes</p>
+            </div>
+            
+            <div class="metric-card">
+              <i class="fas fa-cloud" style="font-size: 2rem; color: var(--gray);"></i>
+              <div class="metric-value">3.2T</div>
+              <p>Carbon emissions reduced</p>
+            </div>
+          </div>
+          
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+            <i class="fas fa-chart-line"></i> View Full Report
+          </button>
+        </div>
+
+        <!-- New Feature: AI Image Generator -->
+        <div class="demo-card">
+          <h3><i class="fas fa-magic"></i> AI Image Generator</h3>
+          <p>Generate images for your products using AI</p>
+          <textarea id="imageDesc" placeholder="Describe the image (e.g., A vibrant handwoven sari in red and gold)" rows="3"></textarea>
+          <button class="btn btn-secondary" onclick="confirmGenerateImage()">
+            <i class="fas fa-image"></i> Generate Image
+          </button>
+          <div class="image-gen-preview" id="imagePreview">
+            <img id="genImage" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF9F59'/><text x='200' y='150' font-family='Arial' font-size='24' fill='white' text-anchor='middle'>Generated Image Placeholder</text></svg>" alt="Generated Image">
+          </div>
+        </div>
+
+        <!-- New Feature: Sustainability Calculator -->
+        <div class="demo-card">
+          <h3><i class="fas fa-calculator"></i> Sustainability Calculator</h3>
+          <p>Calculate your environmental impact</p>
+          <input type="number" id="materialsUsed" placeholder="Materials Used (kg)">
+          <input type="number" id="waterUsed" placeholder="Water Used (L)">
+          <button class="btn btn-secondary" onclick="calculateSustainability()">
+            <i class="fas fa-leaf"></i> Calculate Impact
+          </button>
+          <div class="output" id="sustainOutput">
+            <p>Sustainability metrics will appear here...</p>
+          </div>
+        </div>
+
+        <!-- New Feature: Community Forum Preview -->
+        <div class="demo-card">
+          <h3><i class="fas fa-users"></i> Community Forum</h3>
+          <p>Connect with other artisans</p>
+          <div class="output">
+            <p><strong>Recent Posts:</strong></p>
+            <ul>
+              <li>How to market handmade pottery?</li>
+              <li>Best sustainable materials for textiles</li>
+              <li>Collaboration opportunities in jewelry</li>
+            </ul>
+          </div>
+          <button class="btn btn-secondary" style="width: 100%;">
+            <i class="fas fa-comment-dots"></i> Join Discussion
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" style="padding: 80px 0; background: var(--light-gray);">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Mission</h2>
+        <p>Bridging traditional craftsmanship with modern technology</p>
+      </div>
+      
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <p>ArtisanAI was born from a simple idea: how can we use artificial intelligence to empower rather than replace human creativity? We believe that AI can be a powerful tool to help artisans preserve traditional techniques while reaching new markets and customers.</p>
+        <br>
+        <p>Our platform is designed specifically for the unique needs of local artisans, with support for multiple languages, cultural contexts, and traditional art forms. We're committed to creating technology that serves people and preserves cultural heritage.</p>
+        <br>
+        <button class="btn btn-primary">
+          <i class="fas fa-heart"></i> Support Artisans
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="logo" style="justify-content: center;">
+        <i class="fas fa-hands-helping"></i>
+        <span>ArtisanAI</span>
+      </div>
+      <p>Empowering artisans with AI-driven tools for the modern marketplace</p>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      
+      <p>Made with ❤️ for Gen AI Hackathon</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- html2canvas library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    // Current date for calendar
+    let currentDate = new Date(2025, 7, 22); // August is 7 (0-indexed), day 22
+
+    // Smooth scroll to demo
+    function scrollToDemo() {
+      document.getElementById("demo").scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Toggle mobile menu
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+    }
+
+    // Tab navigation
+    function openTab(evt, tabId) {
+      // Hide all tab contents
+      const tabContents = document.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+      }
+      
+      // Remove active class from all buttons
+      const tabButtons = document.getElementsByClassName("tab-btn");
+      for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove("active");
+      }
+      
+      // Show the specific tab content and mark button as active
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    // Show toast notification
+    function showToast(message, type = "default") {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "toast show";
+      
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.className = "toast";
+      }, 3000);
+    }
+
+    // Voice Input using Web Speech API
+    function startVoiceInput() {
+      if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        showToast("Speech Recognition not supported in this browser.", "error");
+        return;
+      }
+
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = document.getElementById("voiceLang").value;
+      recognition.start();
+
+      document.getElementById("voiceOutput").innerHTML = "<p><i class='fas fa-microphone-alt'></i> Listening... Please describe your product</p>";
+      document.getElementById("voiceLoading").style.display = "block";
+
+      recognition.onresult = function(event) {
+        const speech = event.results[0][0].transcript;
+        document.getElementById("voiceLoading").style.display = "none";
+        
+        // Simulate AI processing with a delay
+        setTimeout(() => {
+          document.getElementById("voiceOutput").innerHTML = `
+            <p><i class='fas fa-check-circle' style='color: var(--success)'></i> <strong>You said:</strong> "${speech}"</p>
+            <hr style='margin: 10px 0; opacity: 0.3'>
+            <p><i class='fas fa-robot' style='color: var(--primary)'></i> <strong>AI Description:</strong> "${speech}" - a beautifully handcrafted piece made with traditional techniques and attention to detail. This product tells a story of cultural heritage and skilled craftsmanship.</p>
+          `;
+          
+          // Also update the market output with a suggestion
+          document.getElementById("marketOutput").innerHTML = `
+            <p><i class='fas fa-lightbulb' style='color: var(--warning)'></i> <strong>AI Suggestion:</strong> This product would appeal to customers interested in authentic handmade goods. Consider highlighting the traditional techniques used in its creation.</p>
+          `;
+        }, 1500);
+      };
+
+      recognition.onerror = function() {
+        document.getElementById("voiceLoading").style.display = "none";
+        document.getElementById("voiceOutput").innerHTML = "<p><i class='fas fa-exclamation-circle' style='color: var(--danger)'></i> Error capturing speech. Please try again.</p>";
+      };
+    }
+
+    // Market customization
+    function customizeMarket() {
+      let market = document.getElementById("marketSelect").value;
+      let output = "";
+
+      if (market === "north") output = "Focus on the vibrant colors and intricate embroidery that characterize North Indian traditions. Highlight suitability for weddings and festive occasions.";
+      else if (market === "south") output = "Emphasize the fine craftsmanship, traditional motifs, and cultural significance of this product in South Indian ceremonies and daily life.";
+      else if (market === "west") output = "Showcase the product's versatility for both traditional and contemporary settings, appealing to Western India's diverse aesthetic preferences.";
+      else if (market === "east") output = "Highlight the connection to nature and spiritual symbolism that resonates with Eastern Indian cultural traditions.";
+      else if (market === "global") output = "Focus on the universal appeal of handmade craftsmanship, sustainability, and the story behind the artisan. Use terms like 'ethically made' and 'fair trade'.";
+      else if (market === "europe") output = "Emphasize the product's authenticity, traditional techniques, and uniqueness. European markets value products with stories and cultural significance.";
+      else if (market === "usa") output = "Highlight the product's uniqueness, craftsmanship, and how it supports artisan communities. American consumers appreciate products with social impact stories.";
+      else output = "Please select a market to see customized recommendations.";
+
+      document.getElementById("marketOutput").innerHTML = output ? 
+        `<p><i class='fas fa-globe' style='color: var(--primary)'></i> <strong>Market Customization:</strong> ${output}</p>` : 
+        "<p>Please select a market to see customized recommendations...</p>";
+    }
+
+    // Image upload preview
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const img = document.getElementById("preview");
+      img.style.display = "block";
+      img.src = URL.createObjectURL(file);
+      
+      // Also set as poster image if available
+      if (document.getElementById("posterImg")) {
+        document.getElementById("posterImg").src = URL.createObjectURL(file);
+      }
+    }
+
+    // Generate poster
+    function generatePoster() {
+      const poster = document.getElementById("poster");
+      const title = document.getElementById("posterTitle").value;
+      const description = document.getElementById("posterDesc").value;
+      
+      // Update poster content
+      document.getElementById("posterCaption").textContent = title;
+      document.getElementById("posterDescription").textContent = description;
+      
+      // Show poster and download button
+      poster.style.display = "block";
+      document.getElementById("downloadBtn").style.display = "block";
+      
+      showToast("Poster generated successfully!");
+    }
+
+    // Download poster as image
+    function downloadPoster() {
+      const poster = document.getElementById("poster");
+      html2canvas(poster).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "artisan-poster.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+      
+      showToast("Poster downloaded!");
+    }
+
+    // AI Storytelling
+    function generateStory() {
+      const product = document.getElementById("storyInput").value.trim();
+      if (!product) {
+        showToast("Please enter a product name first!", "error");
+        return;
+      }
+
+      document.getElementById("storyLoading").style.display = "block";
+      document.getElementById("storyOutput").innerHTML = "<p>Generating your story...</p>";
+
+      // Simulate AI processing with a delay
+      setTimeout(() => {
+        const stories = {
+          "kanjiwaram sari": `The ${product} is a masterpiece of South Indian weaving tradition. Each sari takes approximately 10-15 days to create on traditional handlooms, with intricate patterns known as "kolam" that are passed down through generations. The vibrant colors are derived from natural sources, and the zari (gold thread) work represents the rich cultural heritage of Tamil Nadu.`,
+          "pottery": `This ${product} is hand-thrown by skilled artisans using techniques that date back thousands of years. The clay is sourced locally from riverbanks, and each piece is sun-dried before being fired in traditional wood-burning kilns. The unique patterns are created using natural dyes and represent the artisan's connection to their environment and cultural symbols.`,
+          "jewelry": `Crafted by hand using techniques perfected over centuries, this ${product} tells a story of cultural identity and artistic expression. The artisan has incorporated traditional motifs that symbolize protection, prosperity, and connection to nature, creating a piece that is both beautiful and meaningful.`,
+          "": "Please enter a product name to generate a story."
+        };
+
+        const story = stories[product.toLowerCase()] || 
+          `This ${product} was handcrafted by skilled artisans using traditional techniques passed down through generations. Each piece tells a story of cultural heritage, meticulous craftsmanship, and the artisan's connection to their community and traditions. The attention to detail and use of natural materials make it a unique piece that carries the soul of its maker.`;
+
+        document.getElementById("storyLoading").style.display = "none";
+        document.getElementById("storyOutput").innerHTML = `
+          <p><i class='fas fa-book-open' style='color: var(--primary)'></i> <strong>Story for ${product}:</strong></p>
+          <p>${story}</p>
+        `;
+      }, 2000);
+    }
+
+    // Pricing calculation
+    function calculatePricing() {
+      const productName = document.getElementById("productName").value;
+      const costPrice = parseFloat(document.getElementById("costPrice").value);
+      const hoursWorked = parseFloat(document.getElementById("hoursWorked").value);
+      
+      if (!productName || isNaN(costPrice) || isNaN(hoursWorked)) {
+        showToast("Please fill all fields correctly for pricing calculation", "error");
+        return;
+      }
+      
+      // Simple pricing algorithm
+      const hourlyRate = 200; // Fair wage per hour
+      const materialCost = costPrice;
+      const laborCost = hoursWorked * hourlyRate;
+      const totalCost = materialCost + laborCost;
+      const wholesalePrice = totalCost * 1.5;
+      const retailPrice = wholesalePrice * 2;
+      
+      document.getElementById("pricingOutput").innerHTML = `
+        <p><strong>Pricing suggestions for ${productName}:</strong></p>
+        <ul>
+          <li>Material Cost: ₹${materialCost.toFixed(2)}</li>
+          <li>Labor Cost (${hoursWorked} hours): ₹${laborCost.toFixed(2)}</li>
+          <li>Total Cost: ₹${totalCost.toFixed(2)}</li>
+          <li><strong>Wholesale Price: ₹${wholesalePrice.toFixed(2)}</strong></li>
+          <li><strong>Retail Price: ₹${retailPrice.toFixed(2)}</strong></li>
+        </ul>
+        <p><i>Note: These are suggested prices based on fair wage principles.</i></p>
+      `;
+    }
+
+    // Market analysis
+    function showMarketAnalysis() {
+      const category = document.getElementById("productCategory").value;
+      
+      if (!category) {
+        showToast("Please select a product category first", "error");
+        return;
+      }
+      
+      const analyses = {
+        "textiles": "The textile market is growing at 8% annually, with increased demand for handmade, sustainable products. Popular price points: ₹2000-8000. Best selling seasons: Festival and wedding months (October-March).",
+        "pottery": "Artisanal pottery has seen a 15% increase in demand, particularly for functional home goods. Popular price points: ₹500-3000. Customers value uniqueness and craftsmanship over perfect symmetry.",
+        "jewelry": "Handmade jewelry market is expanding rapidly, especially pieces with cultural stories. Popular price points: ₹1000-5000. Silver and brass pieces with traditional motifs are particularly popular.",
+        "home": "Home decor artisans are benefiting from the 'conscious consumer' trend. Popular price points: ₹1500-10000. Natural materials and cultural stories enhance perceived value.",
+        "art": "Art market is recovering post-pandemic, with growing interest in cultural art forms. Popular price points: ₹5000-30000. Online galleries and social media are effective sales channels."
+      };
+      
+      document.getElementById("analysisOutput").innerHTML = `
+        <p><strong>Market Analysis for ${category}:</strong></p>
+        <p>${analyses[category]}</p>
+        <p><i>Source: ArtisanAI Market Trends Report 2023</i></p>
+      `;
+    }
+
+    // Marketing tips
+    function generateMarketingTips() {
+      const businessSize = document.getElementById("businessSize").value;
+      
+      if (!businessSize) {
+        showToast("Please select your business size first", "error");
+        return;
+      }
+      
+      const tips = {
+        "individual": "As an individual artisan, focus on telling your personal story. Use social media to showcase your process. Consider collaborating with other artisans for pop-up events. High-quality photography is essential - natural light works best.",
+        "small": "With a small team, you can specialize in custom orders. Develop a signature style and build a loyal customer base. Consider teaching workshops to diversify income. Create a simple website with an about page for each artisan.",
+        "medium": "As a medium enterprise, you can invest in professional product photography. Develop collections around themes or festivals. Explore wholesale opportunities with boutiques. Consider participating in craft fairs and exhibitions.",
+        "large": "As a large cooperative, you can develop a brand identity with consistent packaging. Invest in an e-commerce website with multiple payment options. Explore export opportunities with cultural organizations. Consider developing training programs to preserve traditional techniques."
+      };
+      
+      document.getElementById("tipsOutput").innerHTML = `
+        <p><strong>Marketing Tips for Your Business:</strong></p>
+        <p>${tips[businessSize]}</p>
+      `;
+    }
+
+    // AI Virtual Assistant Chat
+    function sendChatMessage() {
+      const input = document.getElementById("chatInput");
+      const message = input.value.trim();
+      
+      if (!message) return;
+      
+      const chatMessages = document.getElementById("chatMessages");
+      
+      // Add user message
+      chatMessages.innerHTML += `
+        <div class="message user-message">
+          ${message}
+        </div>
+      `;
+      
+      // Clear input
+      input.value = "";
+      
+      // Scroll to bottom
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      
+      // Simulate AI response after a delay
+      setTimeout(() => {
+        // Simple response logic
+        let response = "";
+        
+        if (message.toLowerCase().includes("price") || message.toLowerCase().includes("cost")) {
+          response = "Pricing depends on materials, time investment, and market factors. I can help you calculate a fair price using our pricing tool.";
+        } else if (message.toLowerCase().includes("market") || message.toLowerCase().includes("sell")) {
+          response = "Based on current trends, handmade products are in high demand globally. Consider targeting markets that value sustainability and cultural authenticity.";
+        } else if (message.toLowerCase().includes("story") || message.toLowerCase().includes("describe")) {
+          response = "A good product story includes information about materials, techniques, cultural significance, and the artisan's personal connection to the craft.";
+        } else if (message.toLowerCase().includes("photo") || message.toLowerCase().includes("image")) {
+          response = "For product photography, use natural light and a simple background. Show details and the product in use. Our platform can help you create professional-looking images.";
+        } else {
+          response = "I'm here to help with your artisan business. You can ask me about pricing, marketing, storytelling, or product presentation.";
+        }
+        
+        // Add bot response
+        chatMessages.innerHTML += `
+          <div class="message bot-message">
+            ${response}
+          </div>
+        `;
+        
+        // Scroll to bottom again
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+    }
+
+    // Allow pressing Enter to send chat message
+    document.getElementById("chatInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendChatMessage();
+      }
+    });
+
+    // Generate Sample Inventory with editable stock
+    function generateSampleInventory() {
+      const inventoryGrid = document.getElementById("inventoryGrid");
+      
+      const sampleItems = [
+        { name: "Handwoven Sari", stock: 5, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23FF9F59'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Handwoven Sari</text></svg>" },
+        { name: "Clay Pottery Set", stock: 3, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23FF7B36'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Clay Pottery Set</text></svg>" },
+        { name: "Brass Earrings", stock: 12, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23FFDE59'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Brass Earrings</text></svg>" },
+        { name: "Wooden Sculpture", stock: 2, image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23333'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Wooden Sculpture</text></svg>" }
+      ];
+      
+      // Load from localStorage if available
+      const savedInventory = JSON.parse(localStorage.getItem('inventory')) || sampleItems;
+      
+      let inventoryHTML = "";
+      
+      savedInventory.forEach((item, index) => {
+        inventoryHTML += `
+          <div class="inventory-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="inventory-details">
+              <h4>${item.name}</h4>
+              <p>Stock: <input type="number" value="${item.stock}" onchange="updateStock(${index}, this.value)"></p>
+            </div>
+          </div>
+        `;
+      });
+      
+      inventoryGrid.innerHTML = inventoryHTML;
+      showToast("Inventory loaded! Edit stock as needed.");
+    }
+
+    // Update stock in localStorage
+    function updateStock(index, newStock) {
+      const savedInventory = JSON.parse(localStorage.getItem('inventory')) || [];
+      savedInventory[index].stock = parseInt(newStock);
+      localStorage.setItem('inventory', JSON.stringify(savedInventory));
+      showToast("Stock updated!");
+    }
+
+    // Activate AR Preview
+    function activateAR() {
+      const arPlaceholder = document.getElementById("arPlaceholder");
+      arPlaceholder.innerHTML = `
+        <i class="fas fa-spinner fa-spin" style="font-size: 3rem; margin-bottom: 15px;"></i>
+        <p>Loading AR experience...</p>
+      `;
+      
+      // Simulate AR loading with improved message
+      setTimeout(() => {
+        arPlaceholder.innerHTML = `
+          <i class="fas fa-check-circle" style="font-size: 3rem; margin-bottom: 15px; color: var(--success);"></i>
+          <p>AR experience loaded</p>
+          <p style="font-size: 0.8rem; margin-top: 10px;">Move your device to view product in AR. (Simulation: Imagine your product here!)</p>
+        `;
+        
+        showToast("AR experience activated!");
+      }, 2000);
+    }
+
+    // Dynamic Calendar
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+
+    function generateCalendar(month, year) {
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      document.getElementById("calendarMonthYear").textContent = `${monthNames[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1).getDay(); // 0=Sun, 6=Sat
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      let calendarHTML = "<div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>";
+
+      // Empty cells
+      for (let i = 0; i < firstDay; i++) {
+        calendarHTML += "<div></div>";
+      }
+
+      // Days
+      for (let day = 1; day <= daysInMonth; day++) {
+        let cellClass = "";
+        if (day === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
+          cellClass = "today";
+        }
+        calendarHTML += `<div class="calendar-cell ${cellClass}">${day}</div>`;
+      }
+
+      document.getElementById("calendarGrid").innerHTML = calendarHTML;
+    }
+
+    function prevMonth() {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      generateCalendar(currentMonth, currentYear);
+    }
+
+    function nextMonth() {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      generateCalendar(currentMonth, currentYear);
+    }
+
+    // New Feature: Confirm Generate Image
+    function confirmGenerateImage() {
+      const desc = document.getElementById("imageDesc").value.trim();
+      if (!desc) {
+        showToast("Please enter a description first!", "error");
+        return;
+      }
+
+      if (confirm(`Do you want to generate an image for: "${desc}"?`)) {
+        // Simulate generation
+        document.getElementById("imagePreview").style.display = "block";
+        showToast("Image generated! (Placeholder shown)");
+      } else {
+        showToast("Image generation cancelled.");
+      }
+    }
+
+    // New Feature: Calculate Sustainability
+    function calculateSustainability() {
+      const materials = parseFloat(document.getElementById("materialsUsed").value);
+      const water = parseFloat(document.getElementById("waterUsed").value);
+
+      if (isNaN(materials) || isNaN(water)) {
+        showToast("Please enter valid numbers!", "error");
+        return;
+      }
+
+      // Simple calculation
+      const treesSaved = (materials * 0.5).toFixed(1); // Arbitrary formula
+      const carbonReduced = (water * 0.002).toFixed(2);
+
+      document.getElementById("sustainOutput").innerHTML = `
+        <p><strong>Sustainability Impact:</strong></p>
+        <ul>
+          <li>Trees Saved: ${treesSaved}</li>
+          <li>Carbon Reduced: ${carbonReduced}T</li>
+        </ul>
+      `;
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set some sample values for demo purposes
+      document.getElementById("storyInput").value = "Kanjiwaram Sari";
+      document.getElementById("posterTitle").value = "Handcrafted with Love";
+      document.getElementById("posterDesc").value = "A unique artisan product that tells a story of tradition and craftsmanship";
+      
+      // Generate calendar
+      generateCalendar(currentMonth, currentYear);
+
+      // Show a welcome toast after page loads
+      setTimeout(() => {
+        showToast("Welcome to ArtisanAI! Explore our features below.");
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
