@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArtisanAI - Craft Marketplace Assistant</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <i class="fas fa-palette"></i>
+          <span>ArtisanAI</span>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#demo">Demo</a>
+          <a href="#new-features">Workshop</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#ai-tools">AI Tools</a>
+          <a href="#about">About</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>AI Marketplace Assistant for Artisans</h1>
+      <p>Empowering craftspeople with AI-powered storytelling, marketing, and collaboration tools to showcase handmade creations</p>
+      <button class="btn btn-primary" onclick="scrollToDemo()">
+        <i class="fas fa-magic"></i> Try Live Demo
+      </button>
+    </div>
+  </section>
+
+  <!-- Limited Time Offer Banner -->
+  <div class="container">
+    <div class="offer-banner">
+      <h3><i class="fas fa-gift"></i> Special Launch Offer!</h3>
+      <p>Get 3 months free when you sign up for our annual plan</p>
+      <div class="offer-timer" id="offer-timer">48:00:00</div>
+      <button class="btn btn-secondary">Claim Offer Now</button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Artisan Features</h2>
+        <p>Everything craftspeople need to thrive in the digital marketplace</p>
+      </div>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-microphone-alt"></i>
+          </div>
+          <h3>Voice-First Accessibility</h3>
+          <p>Describe your creations naturally using voice commands in multiple languages</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <h3>AI Storytelling</h3>
+          <p>Transform product details into compelling stories that connect with customers</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Market Insights</h3>
+          <p>Get data-driven recommendations to price and position your crafts effectively</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Visual Merchandising</h3>
+          <p>Create stunning promotional materials with AI-enhanced visuals</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Artisan Collaboration</h3>
+          <p>Connect with other makers and create collaborative product lines</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3>Global Reach</h3>
+          <p>Adapt your listings for international markets with translation and cultural customization</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="section-title">
+        <h2>Experience The Power of AI</h2>
+        <p>Try our interactive demo to see how ArtisanAI can transform your craft business</p>
+      </div>
+
+      <!-- Tabs for different demo features -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'tab1')">Voice & Story</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab2')">Visual Marketing</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab3')">Market Insights</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab4')">Material Calculator</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab5')">AI Design Tools</button>
+      </div>
+
+      <!-- Tab 1: Voice and Story -->
+      <div id="tab1" class="tab-content active">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-microphone-alt"></i> Voice Description</h3>
+            <p>Describe your craft using your voice in English or Hindi</p>
+            <select id="voiceLang">
+              <option value="en-IN">English (India)</option>
+              <option value="hi-IN">Hindi</option>
+            </select>
+            <button class="btn btn-secondary" id="voiceBtn" onclick="startVoiceInput()">
+              <i class="fas fa-microphone"></i> Start Recording
+            </button>
+            <div class="output" id="voiceOutput">
+              <p>Click the button above and describe your craft...</p>
+            </div>
+            <div class="loading" id="voiceLoading">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>Processing your description...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-book-open"></i> AI Storyteller</h3>
+            <p>Generate a compelling story for your craft</p>
+            <input type="text" id="storyInput" placeholder="Enter craft name (e.g., Handwoven Basket)"/>
+            <button class="btn btn-secondary" onclick="generateStory()">
+              <i class="fas fa-magic"></i> Generate Story
+            </button>
+            <div class="output" id="storyOutput">
+              <p>Your craft story will appear here...</p>
+            </div>
+            <div class="loading" id="storyLoading">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>Crafting your story...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-globe-asia"></i> Market Customization</h3>
+            <p>See how your craft can be adapted for different markets</p>
+            <select id="marketSelect" onchange="customizeMarket()">
+              <option value="">-- Select Target Market --</option>
+              <option value="north">North India</option>
+              <option value="south">South India</option>
+              <option value="west">West India</option>
+              <option value="east">East India</option>
+              <option value="global">Global Market</option>
+              <option value="europe">European Market</option>
+              <option value="usa">North American Market</option>
+            </select>
+            <div class="output" id="marketOutput">
+              <p>Select a market to see customized recommendations...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Visual Marketing -->
+      <div id="tab2" class="tab-content">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-camera"></i> Craft Photography</h3>
+            <p>Upload an image of your craft to generate marketing materials</p>
+            <div class="file-upload">
+              <button class="file-upload-btn">
+                <i class="fas fa-upload"></i> Choose Image
+              </button>
+              <input type="file" accept="image/*" onchange="previewImage(event)">
+            </div>
+            <div class="output">
+              <img id="preview" alt="Craft Preview" style="width: 100%; border-radius: 8px; display: none;"/>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-paint-brush"></i> Design Customization</h3>
+            <p>Customize your promotional poster</p>
+            <input type="text" id="posterTitle" placeholder="Poster Title" value="Handcrafted with Love">
+            <textarea id="posterDesc" placeholder="Poster Description" rows="3">A unique artisan craft that tells a story of tradition and craftsmanship</textarea>
+            <button class="btn btn-secondary" onclick="generatePoster()">
+              <i class="fas fa-image"></i> Generate Poster
+            </button>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-file-image"></i> Poster Preview</h3>
+            <p>Your customized marketing poster</p>
+            <div class="poster-preview" id="poster">
+              <img id="posterImg" src="" alt="Poster Image"/>
+              <div class="poster-content">
+                <h3 id="posterCaption">Handcrafted with Love</h3>
+                <p id="posterDescription">A unique artisan craft that tells a story of tradition and craftsmanship</p>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="downloadBtn" style="display:none; width: 100%; margin-top: 15px;" onclick="downloadPoster()">
+              <i class="fas fa-download"></i> Download Poster
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Market Insights -->
+      <div id="tab3" class="tab-content">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-search-dollar"></i> Pricing Suggestions</h3>
+            <p>Get AI-recommended pricing for your craft</p>
+            <input type="text" id="productName" placeholder="Craft Name">
+            <input type="number" id="costPrice" placeholder="Cost Price (₹)">
+            <input type="number" id="hoursWorked" placeholder="Hours Worked">
+            <button class="btn btn-secondary" onclick="calculatePricing()">
+              <i class="fas fa-calculator"></i> Calculate Pricing
+            </button>
+            <div class="output" id="pricingOutput">
+              <p>Pricing suggestions will appear here...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-chart-pie"></i> Market Analysis</h3>
+            <p>See how similar crafts are performing in the market</p>
+            <select id="productCategory">
+              <option value="">-- Select Category --</option>
+              <option value="textiles">Textiles & Clothing</option>
+              <option value="pottery">Pottery & Ceramics</option>
+              <option value="jewelry">Jewelry & Accessories</option>
+              <option value="home">Home Decor</option>
+              <option value="art">Art & Sculptures</option>
+            </select>
+            <button class="btn btn-secondary" onclick="showMarketAnalysis()">
+              <i class="fas fa-chart-bar"></i> Analyze Market
+            </button>
+            <div class="output" id="analysisOutput">
+              <p>Market analysis will appear here...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-bullseye"></i> Marketing Tips</h3>
+            <p>Personalized recommendations for your business</p>
+            <select id="businessSize">
+              <option value="">-- Business Size --</option>
+              <option value="individual">Individual Artisan</option>
+              <option value="small">Small Workshop (2-5 people)</option>
+              <option value="medium">Medium Enterprise (5-20 people)</option>
+              <option value="large">Large Cooperative</option>
+            </select>
+            <button class="btn btn-secondary" onclick="generateMarketingTips()">
+              <i class="fas fa-lightbulb"></i> Get Tips
+            </button>
+            <div class="output" id="tipsOutput">
+              <p>Marketing tips will appear here...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW TAB: Material Calculator -->
+      <div id="tab4" class="tab-content">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-calculator"></i> Material Calculator</h3>
+            <p>Calculate materials needed for your projects</p>
+            
+            <select id="projectType">
+              <option value="">-- Select Project Type --</option>
+              <option value="weaving">Weaving</option>
+              <option value="pottery">Pottery</option>
+              <option value="woodworking">Woodworking</option>
+              <option value="jewelry">Jewelry Making</option>
+            </select>
+            
+            <div class="calculator-grid">
+              <input type="number" id="projectLength" placeholder="Length (cm)">
+              <input type="number" id="projectWidth" placeholder="Width (cm)">
+              <input type="number" id="projectHeight" placeholder="Height (cm)">
+              <input type="number" id="projectQuantity" placeholder="Quantity" value="1">
+            </div>
+            
+            <button class="btn btn-secondary" onclick="calculateMaterials()">
+              <i class="fas fa-calculator"></i> Calculate Materials
+            </button>
+            
+            <div class="calculator-result" id="materialResult">
+              <p>Your material estimates will appear here...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-shopping-basket"></i> Supply Estimator</h3>
+            <p>Estimate costs for your project</p>
+            
+            <div id="supplyCosts">
+              <p>Select a project type first to see cost estimates</p>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="findSuppliers()">
+              <i class="fas fa-truck"></i> Find Local Suppliers
+            </button>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-history"></i> Time Estimator</h3>
+            <p>Estimate how long your project will take</p>
+            
+            <select id="skillLevel">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate" selected>Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+            
+            <div class="output" id="timeEstimate">
+              <p>Select a project type to see time estimates</p>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="addToCalendar()">
+              <i class="fas fa-calendar-plus"></i> Add to Calendar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW TAB: AI Design Tools -->
+      <div id="tab5" class="tab-content">
+        <div class="demo-container">
+          <div class="demo-card">
+            <h3><i class="fas fa-palette"></i> AI Color Palette Generator</h3>
+            <p>Generate harmonious color palettes for your crafts</p>
+            
+            <select id="colorStyle">
+              <option value="">-- Select Color Style --</option>
+              <option value="traditional">Traditional</option>
+              <option value="modern">Modern</option>
+              <option value="vibrant">Vibrant</option>
+              <option value="earthy">Earthy</option>
+              <option value="festive">Festive</option>
+            </select>
+            
+            <button class="btn btn-secondary" onclick="generateColorPalette()">
+              <i class="fas fa-paint-brush"></i> Generate Palette
+            </button>
+            
+            <div class="color-palette" id="colorPalette">
+              <div class="color-item" style="background: #D7C0AA;">#D7C0AA</div>
+              <div class="color-item" style="background: #B85C38;">#B85C38</div>
+              <div class="color-item" style="background: #8CA88E;">#8CA88E</div>
+              <div class="color-item" style="background: #E3B448;">#E3B448</div>
+              <div class="color-item" style="background: #2D4263; color: white;">#2D4263</div>
+            </div>
+            
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+              <i class="fas fa-download"></i> Download Palette
+            </button>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-robot"></i> AI Design Assistant</h3>
+            <p>Get AI suggestions for your craft designs</p>
+            
+            <select id="designCategory">
+              <option value="">-- Select Category --</option>
+              <option value="textiles">Textiles</option>
+              <option value="pottery">Pottery</option>
+              <option value="jewelry">Jewelry</option>
+              <option value="wood">Woodworking</option>
+            </select>
+            
+            <textarea id="designBrief" placeholder="Describe your design project or inspiration" rows="3"></textarea>
+            
+            <button class="btn btn-secondary" onclick="generateDesignSuggestions()">
+              <i class="fas fa-lightbulb"></i> Get Design Ideas
+            </button>
+            
+            <div class="output" id="designOutput">
+              <p>Your design suggestions will appear here...</p>
+            </div>
+          </div>
+          
+          <div class="demo-card">
+            <h3><i class="fas fa-chart-line"></i> AI Trend Predictor</h3>
+            <p>Discover upcoming trends in your craft category</p>
+            
+            <select id="trendCategory">
+              <option value="">-- Select Category --</option>
+              <option value="textiles">Textiles</option>
+              <option value="pottery">Pottery</option>
+              <option value="jewelry">Jewelry</option>
+              <option value="home">Home Decor</option>
+            </select>
+            
+            <button class="btn btn-secondary" onclick="predictTrends()">
+              <i class="fas fa-crystal-ball"></i> Predict Trends
+            </button>
+            
+            <div class="trend-chart" id="trendChart">
+              <div class="trend-bar" style="height: 70%; left: 20px;"></div>
+              <div class="trend-bar" style="height: 85%; left: 60px;"></div>
+              <div class="trend-bar" style="height: 60%; left: 100px;"></div>
+              <div class="trend-bar" style="height: 90%; left: 140px;"></div>
+              <div class="trend-bar" style="height: 75%; left: 180px;"></div>
+            </div>
+            
+            <div class="output" id="trendOutput">
+              <p>Trend predictions will appear here...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" style="padding: 100px 0; background: var(--paper);">
+    <div class="container">
+      <div class="section-title">
+        <h2>Community Gallery</h2>
+        <p>Showcasing creations from our community of artisans</p>
+      </div>
+      
+      <div class="gallery-container">
+        <div class="gallery-item">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23D7C0AA'/><text x='150' y='100' font-family='Arial' font-size='20' fill='%232C272E' text-anchor='middle'>Handwoven Textile</text></svg>" alt="Handwoven Textile">
+          <div class="gallery-caption">
+            <h4>Handwoven Textile</h4>
+            <p>By Priya S.</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23B85C38'/><text x='150' y='100' font-family='Arial' font-size='20' fill='white' text-anchor='middle'>Ceramic Pottery</text></svg>" alt="Ceramic Pottery">
+          <div class="gallery-caption">
+            <h4>Ceramic Pottery</h4>
+            <p>By Rajesh M.</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%232D4263'/><text x='150' y='100' font-family='Arial' font-size='20' fill='white' text-anchor='middle'>Handcrafted Jewelry</text></svg>" alt="Handcrafted Jewelry">
+          <div class="gallery-caption">
+            <h4>Handcrafted Jewelry</h4>
+            <p>By Anjali T.</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%238CA88E'/><text x='150' y='100' font-family='Arial' font-size='20' fill='white' text-anchor='middle'>Wood Carving</text></svg>" alt="Wood Carving">
+          <div class="gallery-caption">
+            <h4>Wood Carving</h4>
+            <p>By Vikram P.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="btn btn-primary">
+          <i class="fas fa-plus"></i> Submit Your Work
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Tools Section -->
+  <section id="ai-tools" style="padding: 100px 0; background: white;">
+    <div class="container">
+      <div class="section-title">
+        <h2>AI-Powered Tools</h2>
+        <p>Advanced artificial intelligence to enhance your craft business</p>
+      </div>
+
+      <div class="demo-container">
+        <!-- AI Pricing Optimizer -->
+        <div class="demo-card">
+          <h3><i class="fas fa-tags"></i> AI Pricing Optimizer</h3>
+          <p>Optimize your pricing strategy with AI</p>
+          
+          <div class="pricing-optimizer">
+            <input type="text" id="pricingProduct" placeholder="Product Name">
+            <input type="number" id="currentPrice" placeholder="Current Price (₹)">
+            
+            <button class="btn btn-secondary" onclick="optimizePricing()">
+              <i class="fas fa-calculator"></i> Optimize Price
+            </button>
+            
+            <div class="price-comparison">
+              <div class="price-option">
+                <h4>Economy</h4>
+                <div class="stat-value">₹799</div>
+                <p>Volume sales</p>
+              </div>
+              
+              <div class="price-option recommended">
+                <h4>Recommended</h4>
+                <div class="stat-value">₹1299</div>
+                <p>Best balance</p>
+              </div>
+              
+              <div class="price-option">
+                <h4>Premium</h4>
+                <div class="stat-value">₹1899</div>
+                <p>Luxury market</p>
+              </div>
+            </div>
+            
+            <div class="output" id="pricingStrategy">
+              <p>Pricing strategy analysis will appear here...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Customer Insights -->
+        <div class="demo-card">
+          <h3><i class="fas fa-users"></i> AI Customer Insights</h3>
+          <p>Understand your target audience better</p>
+          
+          <div class="customer-insight">
+            <select id="customerProduct">
+              <option value="">-- Select Product --</option>
+              <option value="textiles">Textiles</option>
+              <option value="pottery">Pottery</option>
+              <option value="jewelry">Jewelry</option>
+              <option value="home">Home Decor</option>
+            </select>
+            
+            <button class="btn btn-secondary" onclick="generateCustomerInsights()">
+              <i class="fas fa-chart-pie"></i> Generate Insights
+            </button>
+            
+            <div class="insight-chart" id="insightChart">
+              <div class="insight-bar" style="height: 40%; left: 20px;"></div>
+              <div class="insight-bar" style="height: 65%; left: 50px;"></div>
+              <div class="insight-bar" style="height: 30%; left: 80px;"></div>
+              <div class="insight-bar" style="height: 80%; left: 110px;"></div>
+              <div class="insight-bar" style="height: 50%; left: 140px;"></div>
+            </div>
+            
+            <div class="output" id="customerInsights">
+              <p>Customer insights will appear here...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Design Assistant -->
+        <div class="demo-card">
+          <h3><i class="fas fa-drafting-compass"></i> AI Design Assistant</h3>
+          <p>Get personalized design recommendations</p>
+          
+          <div class="design-assistant">
+            <select id="designType">
+              <option value="">-- Design Area --</option>
+              <option value="pattern">Pattern Design</option>
+              <option value="product">Product Design</option>
+              <option value="packaging">Packaging Design</option>
+              <option value="display">Display Design</option>
+            </select>
+            
+            <textarea id="designGoals" placeholder="Describe your design goals" rows="3"></textarea>
+            
+            <button class="btn btn-secondary" onclick="generateDesignRecommendations()">
+              <i class="fas fa-magic"></i> Generate Recommendations
+            </button>
+            
+            <div class="design-preview" id="designPreview">
+              <p>Design preview will appear here</p>
+            </div>
+            
+            <div class="output" id="designRecommendations">
+              <p>Design recommendations will appear here...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Trend Predictor -->
+        <div class="demo-card">
+          <h3><i class="fas fa-line-chart"></i> AI Trend Predictor</h3>
+          <p>Discover upcoming trends in your niche</p>
+          
+          <div class="trend-predictor">
+            <select id="trendRegion">
+              <option value="">-- Select Region --</option>
+              <option value="local">Local Market</option>
+              <option value="national">National</option>
+              <option value="global">Global</option>
+            </select>
+            
+            <input type="number" id="timeframe" placeholder="Timeframe (months)" value="6">
+            
+            <button class="btn btn-secondary" onclick="predictMarketTrends()">
+              <i class="fas fa-crystal-ball"></i> Predict Trends
+            </button>
+            
+            <div class="trend-chart" id="marketTrendChart">
+              <div class="trend-bar" style="height: 60%; left: 20px;"></div>
+              <div class="trend-bar" style="height: 75%; left: 60px;"></div>
+              <div class="trend-bar" style="height: 90%; left: 100px;"></div>
+              <div class="trend-bar" style="height: 65%; left: 140px;"></div>
+              <div class="trend-bar" style="height: 80%; left: 180px;"></div>
+            </div>
+            
+            <div class="output" id="trendPredictions">
+              <p>Market trend predictions will appear here...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Features Section -->
+  <section id="new-features" style="padding: 100px 0; background: var(--clay);">
+    <div class="container">
+      <div class="section-title">
+        <h2>Artisan Workshop</h2>
+        <p>More ways we're helping craftspeople succeed in the digital marketplace</p>
+      </div>
+
+      <!-- Craft Challenge -->
+      <div class="demo-card" style="margin-bottom: 40px;">
+        <h3><i class="fas fa-trophy"></i> Monthly Craft Challenge</h3>
+        <p>Join our community challenge and showcase your skills</p>
+        
+        <div class="challenge-container">
+          <div class="challenge-header">
+            <h4>Theme: "Sustainable Materials"</h4>
+            <div class="challenge-timer">12 Days Left</div>
+          </div>
+          
+          <p>Create a piece using at least 70% recycled or sustainable materials</p>
+          
+          <div class="challenge-progress">
+            <div class="progress-bar"></div>
+          </div>
+          
+          <p>127 artisans participating • 42 submissions</p>
+          
+          <button class="btn btn-secondary" style="margin-top: 15px;">
+            <i class="fas fa-plus"></i> Join Challenge
+          </button>
+        </div>
+      </div>
+
+      <div class="demo-container">
+        <!-- Technique Library -->
+        <div class="demo-card">
+          <h3><i class="fas fa-book"></i> Technique Library</h3>
+          <p>Learn new skills with our curated technique library</p>
+          
+          <div class="technique-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Weaving</button>
+            <button class="filter-btn">Pottery</button>
+            <button class="filter-btn">Woodworking</button>
+            <button class="filter-btn">Jewelry</button>
+          </div>
+          
+          <div class="technique-grid">
+            <div class="technique-card">
+              <div style="background: #D7C0AA; height: 200px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-play-circle" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div class="technique-info">
+                <h4>Basic Weaving Patterns</h4>
+                <p>Learn 5 essential weaving patterns for beginners</p>
+                <p class="technique-duration">15 min • Beginner</p>
+              </div>
+            </div>
+            
+            <div class="technique-card">
+              <div style="background: #B85C38; height: 200px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-play-circle" style="font-size: 3rem; color: white;"></i>
+              </div>
+              <div class="technique-info">
+                <h4>Wheel Throwing Basics</h4>
+                <p>Master the fundamentals of pottery wheel throwing</p>
+                <p class="technique-duration">22 min • Intermediate</p>
+              </div>
+            </div>
+          </div>
+          
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+            <i class="fas fa-book-open"></i> Browse All Techniques
+          </button>
+        </div>
+
+        <!-- Craft Fair Planner -->
+        <div class="demo-card">
+          <h3><i class="fas fa-calendar-day"></i> Craft Fair Planner</h3>
+          <p>Plan your next craft fair appearance</p>
+          
+          <div class="fair-container">
+            <h4>Upcoming Craft Fairs</h4>
+            <ul>
+              <li>Delhi Handicrafts Fair - Sept 15-17</li>
+              <li>Mumbai Artisan Market - Oct 5-8</li>
+              <li>Bangalore Craft Festival - Nov 12-19</li>
+            </ul>
+            
+            <div class="fair-checklist">
+              <h4>Preparation Checklist</h4>
+              <div class="checklist-item">
+                <input type="checkbox" id="item1">
+                <label for="item1">Inventory prepared</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="item2">
+                <label for="item2">Display materials ready</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="item3">
+                <label for="item3">Payment system set up</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="item4">
+                <label for="item4">Business cards printed</label>
+              </div>
+            </div>
+            
+            <button class="btn btn-secondary" style="width: 100%;">
+              <i class="fas fa-tasks"></i> Generate Complete Checklist
+            </button>
+          </div>
+        </div>
+
+        <!-- Collaborative Project Space -->
+        <div class="demo-card">
+          <h3><i class="fas fa-users"></i> Collaborative Projects</h3>
+          <p>Work with other artisans on collaborative pieces</p>
+          
+          <div class="collab-container">
+            <h4>Current Collaborations</h4>
+            <p>Weaver + Potter Collection</p>
+            
+            <div class="collab-users">
+              <div class="user-avatar">P</div>
+              <div class="user-avatar">R</div>
+              <div class="user-avatar">+2</div>
+            </div>
+            
+            <div class="collab-chat">
+              <div class="message bot-message">
+                Welcome to the collaboration space! You can share ideas and coordinate here.
+              </div>
+            </div>
+            
+            <div class="chat-input">
+              <input type="text" placeholder="Type your message...">
+              <button class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+            
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+              <i class="fas fa-plus"></i> Start New Collaboration
+            </button>
+          </div>
+        </div>
+
+        <!-- Business Dashboard -->
+        <div class="demo-card">
+          <h3><i class="fas fa-chart-line"></i> Business Dashboard</h3>
+          <p>Track your artisan business performance</p>
+          
+          <div class="dashboard-grid">
+            <div class="dashboard-card">
+              <i class="fas fa-shopping-cart" style="font-size: 2rem; color: var(--terracotta);"></i>
+              <div class="stat-value">42</div>
+              <div class="stat-label">Sales This Month</div>
+            </div>
+            
+            <div class="dashboard-card">
+              <i class="fas fa-eye" style="font-size: 2rem; color: var(--terracotta);"></i>
+              <div class="stat-value">1.2K</div>
+              <div class="stat-label">Profile Views</div>
+            </div>
+            
+            <div class="dashboard-card">
+              <i class="fas fa-rupee-sign" style="font-size: 2rem; color: var(--terracotta);"></i>
+              <div class="stat-value">₹24.5K</div>
+              <div class="stat-label">Revenue</div>
+            </div>
+            
+            <div class="dashboard-card">
+              <i class="fas fa-star" style="font-size: 2rem; color: var(--terracotta);"></i>
+              <div class="stat-value">4.8</div>
+              <div class="stat-label">Average Rating</div>
+            </div>
+          </div>
+          
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+            <i class="fas fa-chart-bar"></i> View Detailed Analytics
+          </button>
+        </div>
+
+        <!-- Craft Supply Marketplace -->
+        <div class="demo-card">
+          <h3><i class="fas fa-store"></i> Supply Marketplace</h3>
+          <p>Source quality materials from verified suppliers</p>
+          
+          <div class="supply-grid">
+            <div class="supply-item">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23D7C0AA'/><text x='100' y='75' font-family='Arial' font-size='16' fill='%232C272E' text-anchor='middle'>Organic Cotton Yarn</text></svg>" alt="Organic Cotton Yarn">
+              <div class="supply-details">
+                <h4>Organic Cotton Yarn</h4>
+                <p class="supply-price">₹450 / bundle</p>
+                <button class="btn btn-secondary" style="width: 100%;">Add to Cart</button>
+              </div>
+            </div>
+            
+            <div class="supply-item">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23B85C38'/><text x='100' y='75' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Natural Clay</text></svg>" alt="Natural Clay">
+              <div class="supply-details">
+                <h4>Natural Clay</h4>
+                <p class="supply-price">₹320 / kg</p>
+                <button class="btn btn-secondary" style="width: 100%;">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+          
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+            <i class="fas fa-search"></i> Browse More Supplies
+          </button>
+        </div>
+
+        <!-- Craft Journey Timeline -->
+        <div class="demo-card">
+          <h3><i class="fas fa-road"></i> Your Craft Journey</h3>
+          <p>Track your progress and milestones as an artisan</p>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <div class="timeline-date">Jan 2023</div>
+                <p>Joined ArtisanAI community</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <div class="timeline-date">Mar 2023</div>
+                <p>First sale completed</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <div class="timeline-date">Jun 2023</div>
+                <p>Reached 50 products in catalog</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-content">
+                <div class="timeline-date">Sep 2023</div>
+                <p>Featured in "Emerging Artisans" collection</p>
+              </div>
+            </div>
+          </div>
+          
+          <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">
+            <i class="fas fa-award"></i> See Your Achievements
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" style="padding: 100px 0; background: var(--paper);">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Mission</h2>
+        <p>Bridging traditional craftsmanship with modern technology</p>
+      </div>
+      
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <p>ArtisanAI was born from a simple idea: how can we use artificial intelligence to empower rather than replace human creativity? We believe that AI can be a powerful tool to help artisans preserve traditional techniques while reaching new markets and customers.</p>
+        <br>
+        <p>Our platform is designed specifically for the unique needs of local artisans, with support for multiple languages, cultural contexts, and traditional art forms. We're committed to creating technology that serves people and preserves cultural heritage.</p>
+        <br>
+        <button class="btn btn-primary">
+          <i class="fas fa-heart"></i> Support Artisans
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="logo" style="justify-content: center;">
+        <i class="fas fa-palette"></i>
+        <span>ArtisanAI</span>
+      </div>
+      <p>Empowering artisans with AI-driven tools for the modern marketplace</p>
+      
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      
+      <p>Made with ❤️ for Artisans Everywhere</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- html2canvas library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
